@@ -45,27 +45,32 @@ app.on("activate", () => {
 
 //IPC
 ipcMain.on("asynchronous-message", (event, ...args) => {
-	if (args[0] === "minimize") {
+	if (args[0] === "app.minimize") {
 		BrowserWindow.fromId(args[1]).minimize();
-	} else if (args[0] === "maximize") {
+	} else if (args[0] === "app.maximize") {
 		const win = BrowserWindow.fromId(args[1]);
 		if (win.isMaximized()) {
 			win.unmaximize();
 		} else {
 			win.maximize();
 		}
-	} else if (args[0] === "refresh") {
+	} else if (args[0] === "app.refresh") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		tab.webContents.reload();
-	} else if (args[0] === "setTab") {
+	} else if (args[0] === "app.setTab") {
 		setActiveTab(BrowserWindow.fromId(args[1]), args[2]);
-	} else if (args[0] === "newTab") {
+	} else if (args[0] === "app.newTab") {
 		createTab(BrowserWindow.fromId(args[1]), "https://veev.cc", true);
+	} else if (args[0] === "tab.updateTitle") {
+		const win = BrowserWindow.fromId(args[1]);
+		const tab = win.tabs[args[2]];
+		tab.title = args[3];
+		updateTabs(win);
 	}
 });
 
 ipcMain.on("synchronous-message", (event, ...args) => {
-	if (args[0] === "getTabs") {
+	if (args[0] === "app.getTabs") {
 		event.returnValue = JSON.stringify(BrowserWindow.fromId(args[1]).tabs);
 	}
 });
@@ -95,25 +100,17 @@ const setActiveTab = (win, tabId) => {
 	const previousActiveTab = getActiveTab(win.tabs);
 	win.removeBrowserView(previousActiveTab);
 	previousActiveTab.active = false;
-	const id = previousActiveTab.tabId;
-	delete previousActiveTab.id;
-	win.tabs[id] = previousActiveTab;
 
 	//Make Tab Active
 	const tab = win.tabs[tabId];
 	tab.active = true;
 	win.addBrowserView(tab);
-	win.tabs[tabId] = tab;
 
 	//Resize Tab
 	resizeTabView(tab, win);
 
 	//Update UI
-	win.webContents.send(
-		"asynchronous-message",
-		"tabUpdate",
-		JSON.stringify(win.tabs)
-	);
+	updateTabs(win);
 };
 
 //Create Tab
@@ -125,6 +122,7 @@ const createTab = (win, url, active, first) => {
 		}
 	});
 	const id = uuid();
+	tab.webContents.tabId = id;
 
 	//Resize
 	resizeTabView(tab, win);
@@ -167,4 +165,13 @@ const createTab = (win, url, active, first) => {
 	} else {
 		win.webContents.send("tabUpdate", JSON.stringify(win.tabs));
 	}
+};
+
+//Update Tabs
+const updateTabs = win => {
+	win.webContents.send(
+		"asynchronous-message",
+		"app.updateTabs",
+		JSON.stringify(win.tabs)
+	);
 };
