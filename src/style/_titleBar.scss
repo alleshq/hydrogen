@@ -24,8 +24,7 @@
 				margin-top: 8px;
 				border-top: solid 2px transparent;
 				height: 40px;
-				width: 200px;
-				flex-shrink: 0;
+				width: 300px;
 				transition: 0.1s;
 				overflow: hidden;
 
@@ -50,6 +49,23 @@
 					font-size: 15px;
 					width: fit-content;
 					margin: auto 0;
+				}
+			}
+
+			.new {
+				display: flex;
+				flex-flow: column;
+				justify-content: center;
+				text-align: center;
+				height: 42px;
+				width: 42px;
+				margin-top: 8px;
+				border-top-right-radius: 5px;
+				transition: 0.1s;
+				flex-shrink: 0;
+
+				&:hover {
+					background: $midnightBlueTransparent;
 				}
 			}
 		}

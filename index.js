@@ -60,6 +60,8 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		tab.webContents.reload();
 	} else if (args[0] === "setTab") {
 		setActiveTab(BrowserWindow.fromId(args[1]), args[2]);
+	} else if (args[0] === "newTab") {
+		createTab(BrowserWindow.fromId(args[1]), "https://veev.cc", true);
 	}
 });
 

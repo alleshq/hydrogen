@@ -10,10 +10,14 @@ export default () => {
 			<div className="left">
 				<img className="logo" draggable="false" alt="" src="h10.svg" />
 				<div className="tabs">
-					{Object.keys(tabs).map((id) => {
-						const tab = tabs[id];
-						return <Tab key={id} id={id} {...tab} />;
-					})}
+					{Object.keys(tabs).map((id) => (
+						<Tab key={id} id={id} {...tabs[id]} />
+					))}
+					{Object.keys(tabs).length < 10 ? (
+						<div className="new" onClick={window.app.newTab}>
+							<i className="material-icons">add</i>
+						</div>
+					) : <></>}
 				</div>
 			</div>
 			<div className="right">
