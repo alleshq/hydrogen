@@ -5,11 +5,12 @@
 	"main": "index.js",
 	"scripts": {
 		"electron": "electron .",
-		"react-start": "BROWSER=none react-scripts start",
+		"react-start": "cross-env BROWSER=none react-scripts start",
 		"react-build": "react-scripts build",
 		"format": "prettier --write \"**/*.+(js|jsx|json|scss)\""
 	},
 	"devDependencies": {
+		"cross-env": "^7.0.2",
 		"electron": "^8.1.1",
 		"prettier": "^2.0.2",
 		"react": "^16.13.1",

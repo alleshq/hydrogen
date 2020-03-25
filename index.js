@@ -20,13 +20,18 @@ const createWindow = () => {
 
 	//Create Tabs
 	win.tabs = {};
+
 	createTab(win, "https://twitter.com/alleshq", true, true);
-	createTab(win, "https://abaer.dev");
+	createTab(win, "https://abaer.dev");		
 
 	//Load App Page
 	win.loadURL(
 		isDev ? "http://localhost:3000" : `file://${__dirname}/../build/index.html`
 	);
+
+	win.webContents.on('dom-ready', () => {
+		resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win)
+	})
 };
 app.whenReady().then(createWindow);
 
