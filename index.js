@@ -1,4 +1,4 @@
-const {app, BrowserWindow, BrowserView, ipcMain} = require("electron");
+const {app, BrowserWindow, BrowserView, ipcMain, screen} = require("electron");
 const isDev = require("electron-is-dev");
 const uuid = require("uuid").v4;
 
@@ -6,17 +6,17 @@ app.allowRendererProcessReuse = true;
 
 //Create Window
 const createWindow = () => {
+	const {width, height} = screen.getPrimaryDisplay().workAreaSize;
 	const win = new BrowserWindow({
-		width: 1000,
+		width,
+		height,
 		minWidth: 1000,
-		height: 700,
 		minHeight: 700,
 		frame: false,
 		webPreferences: {
 			preload: __dirname + "/appPreload.js"
 		}
 	});
-	if (isDev) win.openDevTools();
 
 	//Create Tabs
 	win.tabs = {};
