@@ -10,18 +10,10 @@ export default () => {
 			<div className="left">
 				<img className="logo" draggable="false" alt="" src="h10.svg" />
 				<div className="tabs">
-					{
-						Object.keys(tabs).map(id => {
-							const tab = tabs[id];
-							return (
-								<Tab
-									key={id}
-									id={id}
-									{...tab}
-								/>
-							);
-						})
-					}
+					{Object.keys(tabs).map((id) => {
+						const tab = tabs[id];
+						return <Tab key={id} id={id} {...tab} />;
+					})}
 				</div>
 			</div>
 			<div className="right">

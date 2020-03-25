@@ -1,5 +1,5 @@
 const {ipcRenderer, remote} = require("electron");
-const windowId = remote.getCurrentWindow().id
+const windowId = remote.getCurrentWindow().id;
 
 window.ontabupdate = () => {};
 ipcRenderer.on("asynchronous-message", (event, ...args) => {
@@ -10,9 +10,15 @@ ipcRenderer.on("asynchronous-message", (event, ...args) => {
 
 window.app = {
 	windowId,
-	minimize: () => ipcRenderer.send("asynchronous-message", "minimize", windowId),
-	maximize: () => ipcRenderer.send("asynchronous-message", "maximize", windowId),
+	minimize: () =>
+		ipcRenderer.send("asynchronous-message", "minimize", windowId),
+	maximize: () =>
+		ipcRenderer.send("asynchronous-message", "maximize", windowId),
 	refresh: () => ipcRenderer.send("asynchronous-message", "refresh", windowId),
-	getTabs: () => JSON.parse(ipcRenderer.sendSync("synchronous-message",  "getTabs", windowId)),
-	setTab: tabId => ipcRenderer.send("asynchronous-message", "setTab", windowId, tabId)
+	getTabs: () =>
+		JSON.parse(
+			ipcRenderer.sendSync("synchronous-message", "getTabs", windowId)
+		),
+	setTab: (tabId) =>
+		ipcRenderer.send("asynchronous-message", "setTab", windowId, tabId)
 };

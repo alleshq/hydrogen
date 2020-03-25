@@ -22,16 +22,16 @@ const createWindow = () => {
 	win.tabs = {};
 
 	createTab(win, "https://twitter.com/alleshq", true, true);
-	createTab(win, "https://abaer.dev");		
+	createTab(win, "https://abaer.dev");
 
 	//Load App Page
 	win.loadURL(
 		isDev ? "http://localhost:3000" : `file://${__dirname}/../build/index.html`
 	);
 
-	win.webContents.on('dom-ready', () => {
-		resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win)
-	})
+	win.webContents.on("dom-ready", () => {
+		resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win);
+	});
 };
 app.whenReady().then(createWindow);
 
@@ -81,8 +81,8 @@ const resizeTabView = (tv, win) => {
 };
 
 //Get Active Tab
-const getActiveTab = tabs => {
-	const tabStatus = Object.keys(tabs).map(id => tabs[id].active ? 1 : 0);
+const getActiveTab = (tabs) => {
+	const tabStatus = Object.keys(tabs).map((id) => (tabs[id].active ? 1 : 0));
 	const activeId = Object.keys(tabs)[tabStatus.indexOf(1)];
 	const active = tabs[activeId];
 	active.tabId = activeId;
@@ -106,7 +106,11 @@ const setActiveTab = (win, tabId) => {
 	win.tabs[tabId] = tab;
 
 	//Update UI
-	win.webContents.send("asynchronous-message", "tabUpdate", JSON.stringify(win.tabs));
+	win.webContents.send(
+		"asynchronous-message",
+		"tabUpdate",
+		JSON.stringify(win.tabs)
+	);
 };
 
 //Create Tab
@@ -119,7 +123,7 @@ const createTab = (win, url, active, first) => {
 	if (first) {
 		tab.active = true;
 		win.addBrowserView(tab);
-	};
+	}
 	tab.webContents.loadURL(url);
 	win.tabs[id] = tab;
 
@@ -134,4 +138,4 @@ const createTab = (win, url, active, first) => {
 	} else {
 		win.webContents.send("tabUpdate", JSON.stringify(win.tabs));
 	}
-}
+};
