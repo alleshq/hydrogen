@@ -125,6 +125,7 @@ const createTab = (win, url, active, first) => {
 	});
 	const id = uuid();
 	resizeTabView(tab, win);
+	tab.webContents.setUserAgent("Hydrogen");
 	tab.title = url;
 	tab.icon = "https://alleshq.com/a00.png";
 	if (first) {
