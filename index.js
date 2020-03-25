@@ -55,6 +55,8 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		} else {
 			win.maximize();
 		}
+	} else if (args[0] === "app.refresh" && win) {
+		win.getBrowserView().webContents.reload();
 	}
 });
 
