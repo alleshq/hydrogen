@@ -1,9 +1,11 @@
+@import "titleBar";
+@import url("https://use.fontawesome.com/releases/v5.12.0/css/all.css");
+
 body {
     margin: 0;
 }
 
 .app {
-    background: red;
     width: 100%;
     height: 100%;
 }
