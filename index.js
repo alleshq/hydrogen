@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require("electron");
+const {app, BrowserWindow, BrowserView, ipcMain} = require("electron");
 const isDev = require("electron-is-dev");
 app.allowRendererProcessReuse = true;
 
@@ -19,6 +19,17 @@ const createWindow = () => {
 	win.loadURL(
 		isDev ? "http://localhost:3000" : `file://${__dirname}/../build/index.html`
 	);
+
+	//Create Tab View
+	const tabView = new BrowserView();
+	win.setBrowserView(tabView);
+	resizeTabView(tabView, win);
+	tabView.webContents.loadURL("https://abaer.dev");
+
+	//On Resize
+	win.on("resize", () => {
+		resizeTabView(tabView, win);
+	});
 };
 app.whenReady().then(createWindow);
 
@@ -46,3 +57,13 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		}
 	}
 });
+
+//Resize TabView
+const resizeTabView = (tv, win) => {
+	tv.setBounds({
+		x: 0,
+		y: 50,
+		width: win.getBounds().width,
+		height: win.getBounds().height - 50
+	});
+};
