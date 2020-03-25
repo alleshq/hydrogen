@@ -62,8 +62,8 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 const resizeTabView = (tv, win) => {
 	tv.setBounds({
 		x: 0,
-		y: 50,
+		y: 90,
 		width: win.getBounds().width,
-		height: win.getBounds().height - 50
+		height: win.getBounds().height - 90
 	});
 };
