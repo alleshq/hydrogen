@@ -17,7 +17,9 @@ export default () => {
 						<div className="new" onClick={window.app.newTab}>
 							<i className="material-icons">add</i>
 						</div>
-					) : <></>}
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
 			<div className="right">
