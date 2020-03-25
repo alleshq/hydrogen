@@ -119,7 +119,11 @@ const setActiveTab = (win, tabId) => {
 
 //Create Tab
 const createTab = (win, url, active, first) => {
-	const tab = new BrowserView();
+	const tab = new BrowserView({
+		webPreferences: {
+			preload: __dirname + "/tabPreload.js"
+		}
+	});
 	const id = uuid();
 	resizeTabView(tab, win);
 	tab.title = url;
@@ -130,6 +134,7 @@ const createTab = (win, url, active, first) => {
 	}
 	tab.webContents.loadURL(url);
 	win.tabs[id] = tab;
+	tab.webContents.openDevTools();
 
 	//On Resize
 	win.on("resize", () => {
