@@ -18,26 +18,14 @@ const createWindow = () => {
 	});
 	if (isDev) win.openDevTools();
 
+	//Create Tabs
+	win.tabs = {};
+	createTab(win, "https://twitter.com/alleshq", true);
+
 	//Load App Page
 	win.loadURL(
 		isDev ? "http://localhost:3000" : `file://${__dirname}/../build/index.html`
 	);
-
-	//Create Tabs
-	win.tabs = {};
-	const tab = new BrowserView();
-	win.setBrowserView(tab);
-	resizeTabView(tab, win);
-	tab.title = "Homepage";
-	tab.icon = "https://alleshq.com/a00.png";
-	tab.active = true;
-	tab.webContents.loadURL("https://twitter.com");
-	win.tabs[uuid()] = tab;
-
-	//On Resize
-	win.on("resize", () => {
-		resizeTabView(tab, win);
-	});
 };
 app.whenReady().then(createWindow);
 
@@ -92,3 +80,20 @@ const getActiveTab = tabs => {
 	active.id = activeId;
 	return active;
 };
+
+//Create Tab
+const createTab = (win, url, active) => {
+	const tab = new BrowserView();
+	const id = uuid();
+	win.setBrowserView(tab);
+	resizeTabView(tab, win);
+	tab.title = url;
+	tab.icon = "https://alleshq.com/a00.png";
+	tab.webContents.loadURL(url);
+	win.tabs[id] = tab;
+
+	//On Resize
+	win.on("resize", () => {
+		resizeTabView(tab, win);
+	});
+}
