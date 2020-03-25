@@ -1,9 +1,17 @@
 import React from "react";
+import Tab from "./Tab";
 
 export default () => (
 	<div className="titleBar">
 		<div className="left">
 			<img className="logo" alt="" src="h10.svg" />
+			<div className="tabs">
+				<Tab title="Archie Baer" icon="https://abaer.dev/lines-dark.png" />
+				<Tab title="Archie Baer" icon="https://abaer.dev/lines-dark.png" active />
+				<Tab title="Archie Baer" icon="https://abaer.dev/lines-dark.png" />
+				<Tab title="Archie Baer" icon="https://abaer.dev/lines-dark.png" />
+				<Tab title="Archie Baer" icon="https://abaer.dev/lines-dark.png" />
+			</div>
 		</div>
 		<div className="right">
 			<img
