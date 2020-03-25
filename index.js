@@ -118,23 +118,38 @@ const setActiveTab = (win, tabId) => {
 
 //Create Tab
 const createTab = (win, url, active, first) => {
+	//Create Tab
 	const tab = new BrowserView({
 		webPreferences: {
 			preload: __dirname + "/tabPreload.js"
 		}
 	});
 	const id = uuid();
+
+	//Resize
 	resizeTabView(tab, win);
+
+	//Custom UA
 	tab.webContents.setUserAgent("Hydrogen");
+
+	//Inital Meta
 	tab.title = url;
 	tab.icon = "https://alleshq.com/a00.png";
+
+	//If first, make active
 	if (first) {
 		tab.active = true;
 		win.addBrowserView(tab);
 	}
+
+	//Load URL
 	tab.webContents.loadURL(url);
+
+	//Add to tabs object
 	win.tabs[id] = tab;
-	tab.webContents.openDevTools();
+
+	//Open dev tools
+	if (isDev) tab.webContents.openDevTools();
 
 	//On Resize
 	win.on("resize", () => {
