@@ -30,9 +30,7 @@ const createWindow = () => {
 	);
 
 	//Resize
-	win.webContents.on("dom-ready", () => {
-		resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win);
-	});
+	resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win);
 };
 app.whenReady().then(createWindow);
 
