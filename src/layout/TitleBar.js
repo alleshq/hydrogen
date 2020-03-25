@@ -16,6 +16,7 @@ export default () => {
 							return (
 								<Tab
 									key={id}
+									id={id}
 									{...tab}
 								/>
 							);

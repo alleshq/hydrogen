@@ -20,7 +20,8 @@ const createWindow = () => {
 
 	//Create Tabs
 	win.tabs = {};
-	createTab(win, "https://twitter.com/alleshq", true);
+	createTab(win, "https://twitter.com/alleshq", true, true);
+	createTab(win, "https://abaer.dev");
 
 	//Load App Page
 	win.loadURL(
@@ -41,18 +42,20 @@ app.on("activate", () => {
 
 //IPC
 ipcMain.on("asynchronous-message", (event, ...args) => {
-	if (args[0] === "app.minimize") {
+	if (args[0] === "minimize") {
 		BrowserWindow.fromId(args[1]).minimize();
-	} else if (args[0] === "app.maximize") {
+	} else if (args[0] === "maximize") {
 		const win = BrowserWindow.fromId(args[1]);
 		if (win.isMaximized()) {
 			win.unmaximize();
 		} else {
 			win.maximize();
 		}
-	} else if (args[0] === "app.refresh") {
+	} else if (args[0] === "refresh") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		tab.webContents.reload();
+	} else if (args[0] === "setTab") {
+		setActiveTab(BrowserWindow.fromId(args[1]), args[2]);
 	}
 });
 
@@ -77,18 +80,41 @@ const getActiveTab = tabs => {
 	const tabStatus = Object.keys(tabs).map(id => tabs[id].active ? 1 : 0);
 	const activeId = Object.keys(tabs)[tabStatus.indexOf(1)];
 	const active = tabs[activeId];
-	active.id = activeId;
+	active.tabId = activeId;
 	return active;
 };
 
+//Set Active Tab
+const setActiveTab = (win, tabId) => {
+	//Make Previous Tab Inactive
+	const previousActiveTab = getActiveTab(win.tabs);
+	win.removeBrowserView(previousActiveTab);
+	previousActiveTab.active = false;
+	const id = previousActiveTab.tabId;
+	delete previousActiveTab.id;
+	win.tabs[id] = previousActiveTab;
+
+	//Make Tab Active
+	const tab = win.tabs[tabId];
+	tab.active = true;
+	win.addBrowserView(tab);
+	win.tabs[tabId] = tab;
+
+	//Update UI
+	win.webContents.send("asynchronous-message", "tabUpdate", JSON.stringify(win.tabs));
+};
+
 //Create Tab
-const createTab = (win, url, active) => {
+const createTab = (win, url, active, first) => {
 	const tab = new BrowserView();
 	const id = uuid();
-	win.setBrowserView(tab);
 	resizeTabView(tab, win);
 	tab.title = url;
 	tab.icon = "https://alleshq.com/a00.png";
+	if (first) {
+		tab.active = true;
+		win.setBrowserView(tab);
+	};
 	tab.webContents.loadURL(url);
 	win.tabs[id] = tab;
 
@@ -96,4 +122,11 @@ const createTab = (win, url, active) => {
 	win.on("resize", () => {
 		resizeTabView(tab, win);
 	});
+
+	//Make tab active
+	if (!first && active) {
+		setActiveTab(win, id);
+	} else {
+		win.webContents.send("tabUpdate", JSON.stringify(win.tabs));
+	}
 }
