@@ -7,7 +7,7 @@
 		"electron": "electron .",
 		"react-start": "BROWSER=none react-scripts start",
 		"react-build": "react-scripts build",
-		"format": "prettier --write \"**/*.+(js|jsx|json)\""
+		"format": "prettier --write \"**/*.+(js|jsx|json|scss)\""
 	},
 	"devDependencies": {
 		"electron": "^8.1.1",

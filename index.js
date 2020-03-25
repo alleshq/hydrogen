@@ -11,8 +11,8 @@ const createWindow = () => {
 		minHeight: 700,
 		frame: false,
 		webPreferences: {
-			preload: __dirname + "/appPreload.js"
-		}
+			preload: __dirname + "/appPreload.js",
+		},
 	});
 
 	//Load App Page
@@ -37,7 +37,7 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 	const win = BrowserWindow.getFocusedWindow();
 
 	if (args[0] === "app.minimize" && win) {
-		win.minimize();	
+		win.minimize();
 	} else if (args[0] === "app.maximize" && win) {
 		if (win.isMaximized()) {
 			win.unmaximize();
