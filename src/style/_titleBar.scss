@@ -21,7 +21,8 @@
 
 			.tab {
 				display: flex;
-				margin-top: 10px;
+				margin-top: 8px;
+				border-top: solid 2px transparent;
 				height: 40px;
 				width: 200px;
 				flex-shrink: 0;
@@ -29,12 +30,12 @@
 
 				&:not(.active):hover {
 					background: $midnightBlueTransparent;
+					border-color: $deepBlue;
 				}
 
 				&.active {
 					background: $midnightBlue;
-					margin-top: 8px;
-					border-top: solid 2px $activeRed;
+					border-color: $activeRed;
 				}
 
 				img {
