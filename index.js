@@ -22,7 +22,6 @@ const createWindow = () => {
 	win.tabs = {};
 
 	createTab(win, "https://twitter.com/alleshq", true, true);
-	createTab(win, "https://abaer.dev");
 
 	//Load App Page
 	win.loadURL(
