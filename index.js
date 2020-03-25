@@ -156,6 +156,11 @@ const createTab = (win, url, active, first) => {
 		resizeTabView(tab, win);
 	});
 
+	//On new tab
+	tab.webContents.addListener("new-window", (e, url) => {
+		createTab(win, url, true);
+	});
+
 	//Make tab active
 	if (!first && active) {
 		setActiveTab(win, id);
