@@ -56,10 +56,11 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 	if (args[0] === "app.minimize") {
 		BrowserWindow.fromId(args[1]).minimize();
 	} else if (args[0] === "app.maximize") {
-		if (BrowserWindow.fromId(args[1]).isMaximized()) {
-			BrowserWindow.fromId(args[1]).unmaximize();
+		const win = BrowserWindow.fromId(args[1]);
+		if (win.isMaximized()) {
+			win.unmaximize();
 		} else {
-			BrowserWindow.fromId(args[1]).maximize();
+			win.maximize();
 		}
 	} else if (args[0] === "app.refresh") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
