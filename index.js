@@ -113,7 +113,7 @@ const createTab = (win, url, active, first) => {
 	tab.icon = "https://alleshq.com/a00.png";
 	if (first) {
 		tab.active = true;
-		win.setBrowserView(tab);
+		win.addBrowserView(tab);
 	};
 	tab.webContents.loadURL(url);
 	win.tabs[id] = tab;
