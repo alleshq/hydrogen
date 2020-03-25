@@ -11,8 +11,8 @@ const createWindow = () => {
 		minHeight: 700,
 		frame: false,
 		webPreferences: {
-			preload: __dirname + "/appPreload.js",
-		},
+			preload: __dirname + "/appPreload.js"
+		}
 	});
 
 	//Load App Page

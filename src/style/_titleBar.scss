@@ -4,58 +4,58 @@
 	height: 50px;
 	box-sizing: border-box;
 	display: flex;
-    color: white;
+	color: white;
 
 	.left {
 		flex-grow: 1;
-        display: flex;
-        overflow: hidden;
+		display: flex;
+		overflow: hidden;
 
 		.logo {
 			height: 100%;
 		}
 
 		.tabs {
-            display: flex;
-            overflow: hidden;
+			display: flex;
+			overflow: hidden;
 
-            .tab {
-                display: flex;
-                margin-top: 10px;
-                height: 40px;
-                width: 200px;
-                flex-shrink: 0;
-                transition: 0.1s;
+			.tab {
+				display: flex;
+				margin-top: 10px;
+				height: 40px;
+				width: 200px;
+				flex-shrink: 0;
+				transition: 0.1s;
 
-                &:not(.active):hover {
-                    background: $midnightBlueTransparent;
-                }
-                
-                &.active {
-                    background: $midnightBlue;
-                    margin-top: 8px;
-                    border-top: solid 2px $activeRed;
-                }
-    
-                img {
-                    height: calc(100% - 10px);
-                    margin: 5px;
-                    margin-right: 10px;
-                }
-    
-                h1 {
-                    font-weight: 400;
-                    font-size: 15px;
-                    width: fit-content;
-                    margin: auto 0;
-                }
-            }
-        }
+				&:not(.active):hover {
+					background: $midnightBlueTransparent;
+				}
+
+				&.active {
+					background: $midnightBlue;
+					margin-top: 8px;
+					border-top: solid 2px $activeRed;
+				}
+
+				img {
+					height: calc(100% - 10px);
+					margin: 5px;
+					margin-right: 10px;
+				}
+
+				h1 {
+					font-weight: 400;
+					font-size: 15px;
+					width: fit-content;
+					margin: auto 0;
+				}
+			}
+		}
 	}
 
 	.right {
 		display: flex;
-        flex-shrink: 0;
+		flex-shrink: 0;
 
 		div {
 			width: 50px;
