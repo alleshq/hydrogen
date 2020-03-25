@@ -29,6 +29,7 @@ const createWindow = () => {
 		isDev ? "http://localhost:3000" : `file://${__dirname}/../build/index.html`
 	);
 
+	//Resize
 	win.webContents.on("dom-ready", () => {
 		resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win);
 	});
@@ -104,6 +105,9 @@ const setActiveTab = (win, tabId) => {
 	tab.active = true;
 	win.addBrowserView(tab);
 	win.tabs[tabId] = tab;
+
+	//Resize Tab
+	resizeTabView(tab, win);
 
 	//Update UI
 	win.webContents.send(
