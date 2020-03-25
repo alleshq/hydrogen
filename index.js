@@ -1,5 +1,7 @@
 const {app, BrowserWindow, BrowserView, ipcMain} = require("electron");
 const isDev = require("electron-is-dev");
+const uuid = require("uuid").v4;
+
 app.allowRendererProcessReuse = true;
 
 //Create Window
@@ -14,21 +16,27 @@ const createWindow = () => {
 			preload: __dirname + "/appPreload.js"
 		}
 	});
+	if (isDev) win.openDevTools();
 
 	//Load App Page
 	win.loadURL(
 		isDev ? "http://localhost:3000" : `file://${__dirname}/../build/index.html`
 	);
 
-	//Create Tab View
-	const tabView = new BrowserView();
-	win.setBrowserView(tabView);
-	resizeTabView(tabView, win);
-	tabView.webContents.loadURL("https://abaer.dev");
+	//Create Tabs
+	win.tabs = {};
+	const tab = new BrowserView();
+	win.setBrowserView(tab);
+	resizeTabView(tab, win);
+	tab.title = "Homepage";
+	tab.icon = "https://alleshq.com/a00.png";
+	tab.active = true;
+	tab.webContents.loadURL("https://twitter.com");
+	win.tabs[uuid()] = tab;
 
 	//On Resize
 	win.on("resize", () => {
-		resizeTabView(tabView, win);
+		resizeTabView(tab, win);
 	});
 };
 app.whenReady().then(createWindow);
@@ -45,18 +53,23 @@ app.on("activate", () => {
 
 //IPC
 ipcMain.on("asynchronous-message", (event, ...args) => {
-	const win = BrowserWindow.getFocusedWindow();
-
-	if (args[0] === "app.minimize" && win) {
-		win.minimize();
-	} else if (args[0] === "app.maximize" && win) {
-		if (win.isMaximized()) {
-			win.unmaximize();
+	if (args[0] === "app.minimize") {
+		BrowserWindow.fromId(args[1]).minimize();
+	} else if (args[0] === "app.maximize") {
+		if (BrowserWindow.fromId(args[1]).isMaximized()) {
+			BrowserWindow.fromId(args[1]).unmaximize();
 		} else {
-			win.maximize();
+			BrowserWindow.fromId(args[1]).maximize();
 		}
-	} else if (args[0] === "app.refresh" && win) {
-		win.getBrowserView().webContents.reload();
+	} else if (args[0] === "app.refresh") {
+		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
+		tab.webContents.reload();
+	}
+});
+
+ipcMain.on("synchronous-message", (event, ...args) => {
+	if (args[0] === "getTabs") {
+		event.returnValue = JSON.stringify(BrowserWindow.fromId(args[1]).tabs);
 	}
 });
 
@@ -68,4 +81,13 @@ const resizeTabView = (tv, win) => {
 		width: win.getBounds().width,
 		height: win.getBounds().height - 90
 	});
+};
+
+//Get Active Tab
+const getActiveTab = tabs => {
+	const tabStatus = Object.keys(tabs).map(id => tabs[id].active ? 1 : 0);
+	const activeId = Object.keys(tabs)[tabStatus.indexOf(1)];
+	const active = tabs[activeId];
+	active.id = activeId;
+	return active;
 };

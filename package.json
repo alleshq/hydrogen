@@ -18,7 +18,8 @@
 	},
 	"dependencies": {
 		"electron-is-dev": "^1.1.0",
-		"node-sass": "^4.13.1"
+		"node-sass": "^4.13.1",
+		"uuid": "^7.0.2"
 	},
 	"browserslist": {
 		"production": [
