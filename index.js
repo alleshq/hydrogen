@@ -61,6 +61,19 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		setActiveTab(BrowserWindow.fromId(args[1]), args[2]);
 	} else if (args[0] === "app.newTab") {
 		createTab(BrowserWindow.fromId(args[1]), "https://veev.cc/", true);
+	} else if (args[0] === "app.closeTab") {
+		const win = BrowserWindow.fromId(args[1]);
+		const active = getActiveTab(win.tabs).tabId;
+
+		if (Object.keys(win.tabs).length <= 1) return win.close();
+
+		if (active === args[2]) {
+			const activeIndex = Object.keys(win.tabs).indexOf(active);
+			setActiveTab(win, Object.keys(win.tabs)[activeIndex > 0 ? activeIndex - 1 : 1]);
+		}
+
+		delete win.tabs[args[2]];
+		updateTabs(win);
 	} else if (args[0] === "app.goTo") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		const url = args[2];
@@ -105,13 +118,15 @@ const getActiveTab = tabs => {
 
 //Set Active Tab
 const setActiveTab = (win, tabId) => {
+	const tab = win.tabs[tabId];
+	if (!tab) return;
+
 	//Make Previous Tab Inactive
 	const previousActiveTab = getActiveTab(win.tabs);
 	win.removeBrowserView(previousActiveTab);
 	previousActiveTab.active = false;
 
 	//Make Tab Active
-	const tab = win.tabs[tabId];
 	tab.active = true;
 	win.addBrowserView(tab);
 

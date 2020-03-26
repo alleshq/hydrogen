@@ -7,5 +7,6 @@ export default props => (
 	>
 		{props.icon ? <img src={props.icon} alt="" draggable="false" /> : <></>}
 		<h1>{props.title}</h1>
+		<i className="material-icons close" onClick={() => window.app.closeTab(props.id)}>close</i>
 	</div>
 );

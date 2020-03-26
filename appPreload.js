@@ -24,6 +24,8 @@ window.app = {
 		ipcRenderer.send("asynchronous-message", "app.setTab", windowId, tabId),
 	newTab: () =>
 		ipcRenderer.send("asynchronous-message", "app.newTab", windowId),
+	closeTab: tabId =>
+		ipcRenderer.send("asynchronous-message", "app.closeTab", windowId, tabId),
 	goTo: url =>
 		ipcRenderer.send("asynchronous-message", "app.goTo", windowId, url)
 };

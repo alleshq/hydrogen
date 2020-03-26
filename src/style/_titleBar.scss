@@ -45,14 +45,20 @@
 					width: 30px;
 					margin: 5px 0;
 					margin-right: 10px;
+					flex-shrink: 0;
 				}
 
 				h1 {
 					font-weight: 400;
 					font-size: 15px;
-					width: fit-content;
+					overflow: hidden;
 					margin: auto 0;
 					white-space: nowrap;
+					flex-grow: 1;
+				}
+
+				.close {
+					margin: auto 0;
 				}
 			}
 
