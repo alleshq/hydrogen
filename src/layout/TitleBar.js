@@ -6,7 +6,7 @@ export default ({tabs}) => (
 		<div className="left">
 			<img className="logo" draggable="false" alt="" src="h10.svg" />
 			<div className="tabs">
-				{Object.keys(tabs).map((id) => (
+				{Object.keys(tabs).map(id => (
 					<Tab key={id} id={id} {...tabs[id]} />
 				))}
 				{Object.keys(tabs).length < 10 ? (
