@@ -1,8 +1,18 @@
-const {app, BrowserWindow, BrowserView, ipcMain, screen, session} = require("electron");
+const {
+	app,
+	BrowserWindow,
+	BrowserView,
+	ipcMain,
+	screen,
+	session
+} = require("electron");
 const isDev = require("electron-is-dev");
 const uuid = require("uuid").v4;
 const axios = require("axios");
 
+const apiUrl = `${
+	isDev ? "http://localhost" : "https://hydrogen.alles.cx"
+}/api/v1`;
 app.allowRendererProcessReuse = true;
 
 //Create Window
@@ -69,7 +79,11 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 	} else if (args[0] === "app.setTab") {
 		setActiveTab(BrowserWindow.fromId(args[1]), args[2]);
 	} else if (args[0] === "app.newTab") {
-		createTab(BrowserWindow.fromId(args[1]), args[2] ? args[2] : "https://veev.cc/", true);
+		createTab(
+			BrowserWindow.fromId(args[1]),
+			args[2] ? args[2] : "https://veev.cc/",
+			true
+		);
 	} else if (args[0] === "app.closeTab") {
 		const win = BrowserWindow.fromId(args[1]);
 		const active = getActiveTab(win.tabs).tabId;
@@ -177,7 +191,9 @@ const createTab = (win, url, active, first) => {
 	});
 	const id = uuid();
 	tab.webContents.tabId = id;
-	tab.webContents.userAgent = tab.webContents.userAgent.replace(/ hydrogen\\?.([^\s]+)/g, "").replace(/ Electron\\?.([^\s]+)/g, "");
+	tab.webContents.userAgent = tab.webContents.userAgent
+		.replace(/ hydrogen\\?.([^\s]+)/g, "")
+		.replace(/ Electron\\?.([^\s]+)/g, "");
 	resizeTabView(tab, win);
 
 	//Inital Meta
@@ -234,7 +250,7 @@ ElectronBlocker.fromLists(fetch, [
 });
 
 //Nav Input
-const handleNavInput = (win, tab, value) => {
+const handleNavInput = async (win, tab, value) => {
 	if (value.startsWith("h:")) {
 		const cmd = value.replace("h:", "").split(" ");
 		if (cmd[0] === "dev") {
@@ -243,6 +259,8 @@ const handleNavInput = (win, tab, value) => {
 			createTab(win, tab.url, true);
 		}
 	} else {
-		tab.webContents.loadURL(value);
+		const url = (await axios.get(`${apiUrl}/to/${encodeURIComponent(value)}`))
+			.data;
+		tab.webContents.loadURL(url);
 	}
 };

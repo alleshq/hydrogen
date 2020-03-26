@@ -33,7 +33,7 @@ export default ({tabs}) => {
 				<form
 					onSubmit={e => {
 						e.preventDefault();
-						if (url === tab.url) return;
+						if (!url || url === tab.url) return;
 						window.app.navInput(url);
 					}}
 				>
