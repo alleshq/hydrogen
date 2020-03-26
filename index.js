@@ -177,8 +177,7 @@ const createTab = (win, url, active, first) => {
 	});
 	const id = uuid();
 	tab.webContents.tabId = id;
-
-	//Resize
+	tab.webContents.userAgent = tab.webContents.userAgent.replace(/ hydrogen\\?.([^\s]+)/g, "").replace(/ Electron\\?.([^\s]+)/g, "");
 	resizeTabView(tab, win);
 
 	//Inital Meta
