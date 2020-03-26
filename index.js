@@ -153,9 +153,6 @@ const createTab = (win, url, active, first) => {
 	//Add to tabs object
 	win.tabs[id] = tab;
 
-	//Open dev tools
-	if (isDev) tab.webContents.openDevTools();
-
 	//On Resize
 	win.on("resize", () => {
 		resizeTabView(tab, win);
