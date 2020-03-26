@@ -27,7 +27,7 @@ export default ({tabs}) => {
 			</div>
 			<div className="inputBar">
 				<form
-					onSubmit={(e) => {
+					onSubmit={e => {
 						e.preventDefault();
 						if (url === tab.url) return;
 						window.app.goTo(url);
@@ -35,7 +35,7 @@ export default ({tabs}) => {
 				>
 					<input
 						value={typeof url === "string" ? url : tab.url}
-						onChange={(e) => {
+						onChange={e => {
 							setUrl(e.target.value);
 						}}
 					/>

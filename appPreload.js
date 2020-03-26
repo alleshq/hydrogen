@@ -20,10 +20,10 @@ window.app = {
 		JSON.parse(
 			ipcRenderer.sendSync("synchronous-message", "app.getTabs", windowId)
 		),
-	setTab: (tabId) =>
+	setTab: tabId =>
 		ipcRenderer.send("asynchronous-message", "app.setTab", windowId, tabId),
 	newTab: () =>
 		ipcRenderer.send("asynchronous-message", "app.newTab", windowId),
-	goTo: (url) =>
+	goTo: url =>
 		ipcRenderer.send("asynchronous-message", "app.goTo", windowId, url)
 };

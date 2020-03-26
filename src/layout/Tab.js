@@ -1,6 +1,6 @@
 import React from "react";
 
-export default (props) => (
+export default props => (
 	<div
 		className={`tab ${props.active ? "active" : ""}`}
 		onClick={() => window.app.setTab(props.id)}

@@ -95,8 +95,8 @@ const resizeTabView = (tv, win) => {
 };
 
 //Get Active Tab
-const getActiveTab = (tabs) => {
-	const tabStatus = Object.keys(tabs).map((id) => (tabs[id].active ? 1 : 0));
+const getActiveTab = tabs => {
+	const tabStatus = Object.keys(tabs).map(id => (tabs[id].active ? 1 : 0));
 	const activeId = Object.keys(tabs)[tabStatus.indexOf(1)];
 	const active = tabs[activeId];
 	active.tabId = activeId;
@@ -172,7 +172,7 @@ const createTab = (win, url, active, first) => {
 };
 
 //Update Tabs
-const updateTabs = (win) => {
+const updateTabs = win => {
 	win.webContents.send(
 		"asynchronous-message",
 		"app.updateTabs",
