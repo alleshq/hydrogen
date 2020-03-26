@@ -1,7 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import getActiveTab from "../getActiveTab";
 
-export default () => {
+export default ({tabs}) => {
 	const [refreshing, setRefreshing] = useState(false);
+	const [url, setUrl] = useState();
+	const tab = getActiveTab(tabs);
+
+	useEffect(() => setUrl(), [tab]);
 
 	return (
 		<div className="navBar">
@@ -10,7 +15,7 @@ export default () => {
 				<i className="forward material-icons">arrow_forward_ios</i>
 				<i
 					className={`refresh material-icons ${refreshing ? "active" : ""}`}
-					onClick={(e) => {
+					onClick={() => {
 						if (refreshing) return;
 						setRefreshing(true);
 						setTimeout(() => setRefreshing(false), 500);
@@ -19,6 +24,17 @@ export default () => {
 				>
 					refresh
 				</i>
+			</div>
+			<div className="inputBar">
+				<form onSubmit={e => {
+					e.preventDefault();
+					if (url === tab.url) return;
+					window.app.goTo(url);
+				}}>
+					<input value={typeof url === "string" ? url : tab.url} onChange={e => {
+						setUrl(e.target.value);
+					}} />
+				</form>
 			</div>
 		</div>
 	);

@@ -14,12 +14,14 @@ window.app = {
 		ipcRenderer.send("asynchronous-message", "app.minimize", windowId),
 	maximize: () =>
 		ipcRenderer.send("asynchronous-message", "app.maximize", windowId),
-	refresh: () => ipcRenderer.send("asynchronous-message", "app.refresh", windowId),
+	refresh: () =>
+		ipcRenderer.send("asynchronous-message", "app.refresh", windowId),
 	getTabs: () =>
 		JSON.parse(
 			ipcRenderer.sendSync("synchronous-message", "app.getTabs", windowId)
 		),
 	setTab: (tabId) =>
 		ipcRenderer.send("asynchronous-message", "app.setTab", windowId, tabId),
-	newTab: () => ipcRenderer.send("asynchronous-message", "app.newTab", windowId)
+	newTab: () => ipcRenderer.send("asynchronous-message", "app.newTab", windowId),
+	goTo: url => ipcRenderer.send("asynchronous-message", "app.goTo", windowId, url)
 };
