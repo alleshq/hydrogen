@@ -34,7 +34,7 @@ export default ({tabs}) => {
 					onSubmit={e => {
 						e.preventDefault();
 						if (url === tab.url) return;
-						window.app.goTo(url);
+						window.app.navInput(url);
 					}}
 				>
 					<input

@@ -30,8 +30,8 @@ window.app = {
 	newWindow: () => ipcRenderer.send("asynchronous-message", "app.newWindow"),
 	closeTab: tabId =>
 		ipcRenderer.send("asynchronous-message", "app.closeTab", windowId, tabId),
-	goTo: url =>
-		ipcRenderer.send("asynchronous-message", "app.goTo", windowId, url),
+	navInput: v =>
+		ipcRenderer.send("asynchronous-message", "app.navInput", windowId, v),
 	startWindowMove: (relX, relY) =>
 		ipcRenderer.send(
 			"asynchronous-message",

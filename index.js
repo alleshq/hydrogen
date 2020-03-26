@@ -87,10 +87,10 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		win.tabs[args[2]].destroy();
 		delete win.tabs[args[2]];
 		updateTabs(win);
-	} else if (args[0] === "app.goTo") {
-		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
-		const url = args[2];
-		tab.webContents.loadURL(url);
+	} else if (args[0] === "app.navInput") {
+		const win = BrowserWindow.fromId(args[1]);
+		const tab = getActiveTab(win.tabs);
+		handleNavInput(win, tab, args[2]);
 	} else if (args[0] === "app.back") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		tab.webContents.goBack();
@@ -232,3 +232,15 @@ ElectronBlocker.fromLists(fetch, [
 ]).then(blocker => {
 	blocker.enableBlockingInSession(session.defaultSession);
 });
+
+//Nav Input
+const handleNavInput = (win, tab, value) => {
+	if (value.startsWith("h:")) {
+		const cmd = value.replace("h:", "").split(" ");
+		if (cmd[0] === "dev") {
+			tab.webContents.openDevTools();
+		}
+	} else {
+		tab.webContents.loadURL(value);
+	}
+};
