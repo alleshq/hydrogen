@@ -85,6 +85,7 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 			);
 		}
 
+		win.tabs[args[2]].destroy();
 		delete win.tabs[args[2]];
 		updateTabs(win);
 	} else if (args[0] === "app.goTo") {
