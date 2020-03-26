@@ -24,7 +24,8 @@
 				margin-top: 10px;
 				border-top: solid 2px transparent;
 				height: 40px;
-				width: 350px;
+				width: 0;
+				animation: tabOpen 0.4s forwards;
 				transition: 0.1s;
 				overflow: hidden;
 				padding: 0 10px;
@@ -117,5 +118,15 @@
 			margin: 5px;
 			margin-right: 15px;
 		}
+	}
+}
+
+@keyframes tabOpen {
+	from {
+		width: 0;
+	}
+
+	to {
+		width: 350px;
 	}
 }
