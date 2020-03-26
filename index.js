@@ -40,7 +40,7 @@ const createWindow = maximized => {
 		isDev ? "http://localhost:3000" : `file://${__dirname}/../build/index.html`
 	);
 
-	//Window
+	//Window Movement
 	setInterval(() => {
 		if (win.moving) {
 			const mousePos = screen.getCursorScreenPoint();
@@ -49,6 +49,11 @@ const createWindow = maximized => {
 			win.setPosition(x, y);
 		}
 	}, 10);
+
+	//On Resize
+	win.on("resize", () => {
+		Object.keys(win.tabs).forEach(id => resizeTabView(win.tabs[id], win));
+	});
 };
 app.whenReady().then(() => createWindow(true));
 
@@ -212,11 +217,6 @@ const createTab = (win, url, active, first) => {
 
 	//Add to tabs object
 	win.tabs[id] = tab;
-
-	//On Resize
-	win.on("resize", () => {
-		resizeTabView(tab, win);
-	});
 
 	//On new tab
 	tab.webContents.addListener("new-window", (e, url) => {
