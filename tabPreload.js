@@ -7,7 +7,7 @@ window.Hydrogen = {};
 
 //Listen for meta changes
 (() => {
-	var meta = {title: "", url: ""};
+	var meta = {};
 	setInterval(() => {
 		const title = document.title;
 		const url = location.href;
