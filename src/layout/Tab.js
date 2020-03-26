@@ -1,24 +1,37 @@
-import React from "react";
+import React, {useState} from "react";
 
-export default props => (
-	<div
-		className={`tab ${props.active ? "active" : ""}`}
-		onClick={() => window.app.setTab(props.id)}
-		style={{
-			borderColor: props.active
-				? props.color
+export default props => {
+	const [showIcon, setShowIcon] = useState(true);
+
+	return (
+		<div
+			className={`tab ${props.active ? "active" : ""}`}
+			onClick={() => window.app.setTab(props.id)}
+			style={{
+				borderColor: props.active
 					? props.color
-					: "#f70f0f"
-				: undefined
-		}}
-	>
-		{props.icon ? <img src={props.icon} alt="" draggable="false" /> : <></>}
-		<h1>{props.title}</h1>
-		<i
-			className="material-icons close"
-			onClick={() => window.app.closeTab(props.id)}
+						? props.color
+						: "#f70f0f"
+					: undefined
+			}}
 		>
-			close
-		</i>
-	</div>
-);
+			{showIcon ? (
+				<img
+					src={props.icon}
+					alt=""
+					draggable="false"
+					onError={() => setShowIcon(false)}
+				/>
+			) : (
+				<></>
+			)}
+			<h1>{props.title}</h1>
+			<i
+				className="material-icons close"
+				onClick={() => window.app.closeTab(props.id)}
+			>
+				close
+			</i>
+		</div>
+	);
+};

@@ -9,10 +9,12 @@ window.Hydrogen = {};
 (() => {
 	var meta = {};
 	setInterval(() => {
+		const urlData = new URL(location.href);
+
 		const title = document.title;
 		const url = location.href;
 		const iconElem = document.querySelector("link[rel='shortcut icon']");
-		const icon = iconElem ? iconElem.href : null;
+		const icon = iconElem ? iconElem.href : urlData.origin + "/favicon.ico";
 		const colorElem = document.querySelector("meta[name='theme-color']");
 		const color = colorElem ? colorElem.content : null;
 
