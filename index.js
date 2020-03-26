@@ -81,6 +81,12 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		const url = args[2];
 		tab.webContents.loadURL(url);
+	} else if (args[0] === "app.back") {
+		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
+		tab.webContents.goBack();
+	} else if (args[0] === "app.forward") {
+		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
+		tab.webContents.goForward();
 	} else if (args[0] === "tab.updateMeta") {
 		const win = BrowserWindow.fromId(args[1]);
 		const tab = win.tabs[args[2]];

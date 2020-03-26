@@ -31,7 +31,7 @@
 				box-sizing: border-box;
 
 				&:not(.active):hover {
-					background: $midnightBlueTransparent;
+					background: $lessDark;
 					border-color: $midnightBlue;
 				}
 
@@ -75,7 +75,7 @@
 				box-sizing: border-box;
 
 				&:hover {
-					background: $midnightBlueTransparent;
+					background: $lessDark;
 				}
 			}
 		}

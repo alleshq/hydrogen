@@ -12,6 +12,14 @@
 		i {
 			margin: auto 0 auto 20px;
 			display: block;
+			border-radius: 50%;
+			padding: 8px;
+			font-size: 12px;
+			transition: 0.1s;
+
+			&:hover {
+				background: $lightGrey;
+			}
 
 			&.refresh.active {
 				animation: spin 0.5s;

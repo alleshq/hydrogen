@@ -16,6 +16,10 @@ window.app = {
 		ipcRenderer.send("asynchronous-message", "app.maximize", windowId),
 	refresh: () =>
 		ipcRenderer.send("asynchronous-message", "app.refresh", windowId),
+	back: () =>
+		ipcRenderer.send("asynchronous-message", "app.back", windowId),
+	forward: () =>
+		ipcRenderer.send("asynchronous-message", "app.forward", windowId),
 	getTabs: () =>
 		JSON.parse(
 			ipcRenderer.sendSync("synchronous-message", "app.getTabs", windowId)
