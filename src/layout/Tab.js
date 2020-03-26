@@ -5,9 +5,11 @@ export default props => (
 		className={`tab ${props.active ? "active" : ""}`}
 		onClick={() => window.app.setTab(props.id)}
 		style={{
-			borderColor: props.active ? (
-				props.color ? props.color : "#f70f0f"
-			) : undefined
+			borderColor: props.active
+				? props.color
+					? props.color
+					: "#f70f0f"
+				: undefined
 		}}
 	>
 		{props.icon ? <img src={props.icon} alt="" draggable="false" /> : <></>}

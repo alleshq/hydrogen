@@ -11,8 +11,12 @@ export default ({tabs}) => {
 	return (
 		<div className="navBar">
 			<div className="navButtons">
-				<i className="back material-icons" onClick={window.app.back}>arrow_back_ios</i>
-				<i className="forward material-icons" onClick={window.app.forward}>arrow_forward_ios</i>
+				<i className="back material-icons" onClick={window.app.back}>
+					arrow_back_ios
+				</i>
+				<i className="forward material-icons" onClick={window.app.forward}>
+					arrow_forward_ios
+				</i>
 				<i
 					className={`refresh material-icons ${refreshing ? "active" : ""}`}
 					onClick={() => {
