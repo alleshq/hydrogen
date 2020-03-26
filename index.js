@@ -69,8 +69,11 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		const win = BrowserWindow.fromId(args[1]);
 		const tab = win.tabs[args[2]];
 		const meta = JSON.parse(args[3]);
+
 		tab.title = meta.title.trim() ? meta.title.trim() : meta.url;
 		tab.url = meta.url;
+		tab.icon = meta.icon;
+
 		updateTabs(win);
 	}
 });
@@ -138,7 +141,7 @@ const createTab = (win, url, active, first) => {
 
 	//Inital Meta
 	tab.title = url;
-	tab.icon = "https://alleshq.com/a00.png";
+	tab.icon = null;
 	tab.url = url;
 
 	//If first, make active

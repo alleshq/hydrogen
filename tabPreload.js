@@ -9,12 +9,20 @@ window.Hydrogen = {};
 (() => {
 	var meta = {title: "", url: ""};
 	setInterval(() => {
+		const title = document.title;
+		const url = location.href;
+		const iconLink = document.querySelector("link[rel='shortcut icon']");
+		const icon = iconLink ? iconLink.href : null;
+
 		if (
-			document.title !== meta.title ||
-			location.href !== meta.url
+			meta.title !== title ||
+			meta.url !== url ||
+			meta.icon !== icon
 		) {
-			meta.title = document.title;
-			meta.url = location.href;
+			meta.title = title;
+			meta.url = url;
+			meta.icon = icon;
+			
 			ipcRenderer.send(
 				"asynchronous-message",
 				"tab.updateMeta",

@@ -21,12 +21,14 @@
 
 			.tab {
 				display: flex;
-				margin-top: 8px;
+				margin-top: 10px;
 				border-top: solid 2px transparent;
 				height: 40px;
 				width: 350px;
 				transition: 0.1s;
 				overflow: hidden;
+				padding: 0 10px;
+				box-sizing: border-box;
 
 				&:not(.active):hover {
 					background: $midnightBlueTransparent;
@@ -41,7 +43,7 @@
 				img {
 					height: 30px;
 					width: 30px;
-					margin: 5px;
+					margin: 5px 0;
 					margin-right: 10px;
 				}
 
@@ -59,12 +61,13 @@
 				flex-flow: column;
 				justify-content: center;
 				text-align: center;
-				height: 42px;
-				width: 42px;
-				margin-top: 8px;
+				height: 40px;
+				width: 40px;
+				margin-top: 10px;
 				border-top-right-radius: 5px;
 				transition: 0.1s;
 				flex-shrink: 0;
+				box-sizing: border-box;
 
 				&:hover {
 					background: $midnightBlueTransparent;
