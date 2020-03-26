@@ -2,7 +2,11 @@ import React from "react";
 import Tab from "./Tab";
 
 export default ({tabs}) => (
-	<div className="titleBar" onMouseDown={e => window.app.startWindowMove(e.clientX, e.clientY)} onMouseUp={window.app.endWindowMove}>
+	<div
+		className="titleBar"
+		onMouseDown={e => window.app.startWindowMove(e.clientX, e.clientY)}
+		onMouseUp={window.app.endWindowMove}
+	>
 		<div className="left">
 			<img className="logo" draggable="false" alt="" src="h10.svg" />
 			<div className="tabs">
@@ -10,7 +14,11 @@ export default ({tabs}) => (
 					<Tab key={id} id={id} {...tabs[id]} />
 				))}
 				{Object.keys(tabs).length < 10 ? (
-					<div className="new" onClick={window.app.newTab}>
+					<div
+						className="new"
+						onClick={window.app.newTab}
+						onContextMenu={window.app.newWindow}
+					>
 						<i className="material-icons">add</i>
 					</div>
 				) : (

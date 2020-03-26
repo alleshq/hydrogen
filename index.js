@@ -5,11 +5,11 @@ const uuid = require("uuid").v4;
 app.allowRendererProcessReuse = true;
 
 //Create Window
-const createWindow = () => {
+const createWindow = maximized => {
 	const {width, height} = screen.getPrimaryDisplay().workAreaSize;
 	const win = new BrowserWindow({
-		width,
-		height,
+		width: maximized ? width : 1000,
+		height: maximized ? height : 700,
 		minWidth: 1000,
 		minHeight: 700,
 		frame: false,
@@ -41,7 +41,7 @@ const createWindow = () => {
 		}
 	}, 10);
 };
-app.whenReady().then(createWindow);
+app.whenReady().then(() => createWindow(true));
 
 //End process on windows closed
 app.on("window-all-closed", () => {
@@ -103,6 +103,8 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 	} else if (args[0] === "app.endWindowMove") {
 		const win = BrowserWindow.fromId(args[1]);
 		delete win.moving;
+	} else if (args[0] === "app.newWindow") {
+		createWindow(false);
 	} else if (args[0] === "tab.updateMeta") {
 		const win = BrowserWindow.fromId(args[1]);
 		const tab = win.tabs[args[2]];
@@ -145,6 +147,7 @@ const getActiveTab = tabs => {
 
 //Set Active Tab
 const setActiveTab = (win, tabId) => {
+	if (!win) return;
 	const tab = win.tabs[tabId];
 	if (!tab) return;
 
