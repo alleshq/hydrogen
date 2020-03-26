@@ -1,6 +1,7 @@
-const {app, BrowserWindow, BrowserView, ipcMain, screen} = require("electron");
+const {app, BrowserWindow, BrowserView, ipcMain, screen, session} = require("electron");
 const isDev = require("electron-is-dev");
 const uuid = require("uuid").v4;
+const axios = require("axios");
 
 app.allowRendererProcessReuse = true;
 
@@ -223,3 +224,12 @@ const updateTabs = win => {
 		JSON.stringify(win.tabs)
 	);
 };
+
+//Blocking
+const {ElectronBlocker} = require("@cliqz/adblocker-electron");
+const fetch = require("cross-fetch");
+ElectronBlocker.fromLists(fetch, [
+	"https://easylist.to/easylist/easylist.txt"
+]).then(blocker => {
+	blocker.enableBlockingInSession(session.defaultSession);
+});

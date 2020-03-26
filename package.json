@@ -18,6 +18,9 @@
 		"react-scripts": "3.4.1"
 	},
 	"dependencies": {
+		"@cliqz/adblocker-electron": "^1.11.0",
+		"axios": "^0.19.2",
+		"cross-fetch": "^3.0.4",
 		"electron-is-dev": "^1.1.0",
 		"node-sass": "^4.13.1",
 		"uuid": "^7.0.2"
