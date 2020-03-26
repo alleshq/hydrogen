@@ -91,6 +91,7 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		const win = BrowserWindow.fromId(args[1]);
 		const tab = win.tabs[args[2]];
 		const meta = JSON.parse(args[3]);
+		if (!tab) return;
 
 		tab.title = meta.title.trim() ? meta.title.trim() : meta.url;
 		tab.url = meta.url;
