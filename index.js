@@ -30,6 +30,16 @@ const createWindow = () => {
 
 	//Resize
 	resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win);
+
+	//Move Window
+	setInterval(() => {
+		if (win.moving) {
+			const mousePos = screen.getCursorScreenPoint();
+			const x = mousePos.x - win.moving[0];
+			const y = mousePos.y - win.moving[1];
+			win.setPosition(x, y);
+		}
+	}, 10);
 };
 app.whenReady().then(createWindow);
 
@@ -87,6 +97,12 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 	} else if (args[0] === "app.forward") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		tab.webContents.goForward();
+	} else if (args[0] === "app.startWindowMove") {
+		const win = BrowserWindow.fromId(args[1]);
+		if (!win.isMaximized()) win.moving = JSON.parse(args[2]);
+	} else if (args[0] === "app.endWindowMove") {
+		const win = BrowserWindow.fromId(args[1]);
+		delete win.moving;
 	} else if (args[0] === "tab.updateMeta") {
 		const win = BrowserWindow.fromId(args[1]);
 		const tab = win.tabs[args[2]];

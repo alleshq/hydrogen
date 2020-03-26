@@ -2,7 +2,7 @@ import React from "react";
 import Tab from "./Tab";
 
 export default ({tabs}) => (
-	<div className="titleBar">
+	<div className="titleBar" onMouseDown={e => window.app.startWindowMove(e.clientX, e.clientY)} onMouseUp={window.app.endWindowMove}>
 		<div className="left">
 			<img className="logo" draggable="false" alt="" src="h10.svg" />
 			<div className="tabs">
