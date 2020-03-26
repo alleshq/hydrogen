@@ -136,9 +136,6 @@ const createTab = (win, url, active, first) => {
 	//Resize
 	resizeTabView(tab, win);
 
-	//Custom UA
-	tab.webContents.userAgent = "Hydrogen";
-
 	//Inital Meta
 	tab.title = url;
 	tab.icon = null;
