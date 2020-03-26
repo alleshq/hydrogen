@@ -11,13 +11,23 @@ window.Hydrogen = {};
 	setInterval(() => {
 		const title = document.title;
 		const url = location.href;
-		const iconLink = document.querySelector("link[rel='shortcut icon']");
-		const icon = iconLink ? iconLink.href : null;
+		const iconElem = document.querySelector("link[rel='shortcut icon']");
+		const icon = iconElem ? iconElem.href : null;
+		const colorElem = document.querySelector("meta[name='theme-color']");
+		const color = colorElem ? colorElem.content : null;
 
-		if (meta.title !== title || meta.url !== url || meta.icon !== icon) {
-			meta.title = title;
-			meta.url = url;
-			meta.icon = icon;
+		if (
+			meta.title !== title ||
+			meta.url !== url ||
+			meta.icon !== icon ||
+			meta.color !== color
+		) {
+			meta = {
+				title,
+				url,
+				icon,
+				color
+			};
 
 			ipcRenderer.send(
 				"asynchronous-message",

@@ -21,7 +21,7 @@ const createWindow = () => {
 	//Create Tabs
 	win.tabs = {};
 
-	createTab(win, "https://twitter.com/alleshq", true, true);
+	createTab(win, "https://alles.cx", true, true);
 
 	//Load App Page
 	win.loadURL(
@@ -69,7 +69,10 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 
 		if (active === args[2]) {
 			const activeIndex = Object.keys(win.tabs).indexOf(active);
-			setActiveTab(win, Object.keys(win.tabs)[activeIndex > 0 ? activeIndex - 1 : 1]);
+			setActiveTab(
+				win,
+				Object.keys(win.tabs)[activeIndex > 0 ? activeIndex - 1 : 1]
+			);
 		}
 
 		delete win.tabs[args[2]];
@@ -86,6 +89,7 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		tab.title = meta.title.trim() ? meta.title.trim() : meta.url;
 		tab.url = meta.url;
 		tab.icon = meta.icon;
+		tab.color = meta.color;
 
 		updateTabs(win);
 	}

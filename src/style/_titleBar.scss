@@ -32,12 +32,11 @@
 
 				&:not(.active):hover {
 					background: $midnightBlueTransparent;
-					border-color: $deepBlue;
+					border-color: $midnightBlue;
 				}
 
 				&.active {
 					background: $midnightBlue;
-					border-color: $activeRed;
 				}
 
 				img {
