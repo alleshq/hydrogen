@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 export default props => {
 	const [showIcon, setShowIcon] = useState(true);
+
+	useEffect(() => setShowIcon(true), [props.icon]);
 
 	return (
 		<div
