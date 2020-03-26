@@ -14,15 +14,11 @@ window.Hydrogen = {};
 		const iconLink = document.querySelector("link[rel='shortcut icon']");
 		const icon = iconLink ? iconLink.href : null;
 
-		if (
-			meta.title !== title ||
-			meta.url !== url ||
-			meta.icon !== icon
-		) {
+		if (meta.title !== title || meta.url !== url || meta.icon !== icon) {
 			meta.title = title;
 			meta.url = url;
 			meta.icon = icon;
-			
+
 			ipcRenderer.send(
 				"asynchronous-message",
 				"tab.updateMeta",

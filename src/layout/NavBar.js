@@ -26,14 +26,19 @@ export default ({tabs}) => {
 				</i>
 			</div>
 			<div className="inputBar">
-				<form onSubmit={e => {
-					e.preventDefault();
-					if (url === tab.url) return;
-					window.app.goTo(url);
-				}}>
-					<input value={typeof url === "string" ? url : tab.url} onChange={e => {
-						setUrl(e.target.value);
-					}} />
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						if (url === tab.url) return;
+						window.app.goTo(url);
+					}}
+				>
+					<input
+						value={typeof url === "string" ? url : tab.url}
+						onChange={(e) => {
+							setUrl(e.target.value);
+						}}
+					/>
 				</form>
 			</div>
 		</div>
