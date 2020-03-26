@@ -60,7 +60,7 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 	} else if (args[0] === "app.setTab") {
 		setActiveTab(BrowserWindow.fromId(args[1]), args[2]);
 	} else if (args[0] === "app.newTab") {
-		createTab(BrowserWindow.fromId(args[1]), "https://veev.cc", true);
+		createTab(BrowserWindow.fromId(args[1]), "https://veev.cc/", true);
 	} else if (args[0] === "app.goTo") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		const url = args[2];
@@ -69,7 +69,7 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 		const win = BrowserWindow.fromId(args[1]);
 		const tab = win.tabs[args[2]];
 		const meta = JSON.parse(args[3]);
-		tab.title = meta.title;
+		tab.title = meta.title.trim() ? meta.title.trim() : meta.url;
 		tab.url = meta.url;
 		updateTabs(win);
 	}
