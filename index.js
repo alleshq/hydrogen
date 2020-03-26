@@ -22,7 +22,7 @@ const createWindow = maximized => {
 
 	//Create Tabs
 	win.tabs = {};
-	createTab(win, "https://veev.cc", true, true);
+	createTab(win, "https://veev.cc/", true, true);
 	resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win);
 
 	//Load App Page
@@ -69,7 +69,7 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 	} else if (args[0] === "app.setTab") {
 		setActiveTab(BrowserWindow.fromId(args[1]), args[2]);
 	} else if (args[0] === "app.newTab") {
-		createTab(BrowserWindow.fromId(args[1]), "https://veev.cc/", true);
+		createTab(BrowserWindow.fromId(args[1]), args[2] ? args[2] : "https://veev.cc/", true);
 	} else if (args[0] === "app.closeTab") {
 		const win = BrowserWindow.fromId(args[1]);
 		const active = getActiveTab(win.tabs).tabId;
@@ -239,6 +239,8 @@ const handleNavInput = (win, tab, value) => {
 		const cmd = value.replace("h:", "").split(" ");
 		if (cmd[0] === "dev") {
 			tab.webContents.openDevTools();
+		} else if (cmd[0] === "duplicate") {
+			createTab(win, tab.url, true);
 		}
 	} else {
 		tab.webContents.loadURL(value);

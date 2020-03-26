@@ -16,7 +16,7 @@ export default ({tabs}) => (
 				{Object.keys(tabs).length < 10 ? (
 					<div
 						className="new"
-						onClick={window.app.newTab}
+						onClick={() => window.app.newTab()}
 						onContextMenu={window.app.newWindow}
 					>
 						<i className="material-icons">add</i>
