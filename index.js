@@ -15,23 +15,21 @@ const createWindow = maximized => {
 		frame: false,
 		webPreferences: {
 			preload: __dirname + "/appPreload.js"
-		}
+		},
+		title: "Hydrogen"
 	});
 
 	//Create Tabs
 	win.tabs = {};
-
-	createTab(win, "https://alles.cx", true, true);
+	createTab(win, "https://veev.cc", true, true);
+	resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win);
 
 	//Load App Page
 	win.loadURL(
 		isDev ? "http://localhost:3000" : `file://${__dirname}/../build/index.html`
 	);
 
-	//Resize
-	resizeTabView(win.tabs[Object.keys(win.tabs)[0]], win);
-
-	//Move Window
+	//Window
 	setInterval(() => {
 		if (win.moving) {
 			const mousePos = screen.getCursorScreenPoint();
