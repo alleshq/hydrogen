@@ -16,6 +16,7 @@ export default props => {
 						: "#f70f0f"
 					: undefined
 			}}
+			title={props.title}
 		>
 			{showIcon ? (
 				<img
