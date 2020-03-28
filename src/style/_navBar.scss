@@ -31,6 +31,7 @@
 		background: $lessDark;
 		flex-grow: 1;
 		margin: 7px 20px;
+		display: flex;
 
 		input {
 			border: none;
@@ -39,6 +40,51 @@
 			height: 100%;
 			color: white;
 			padding: 0 10px;
+		}
+
+		.lock {
+			margin: auto 10px;
+			font-size: 20px;
+
+			&.secure {
+				color: $secureGreen;
+			}
+
+			&.insecure {
+				color: $activeRed;
+			}
+		}
+
+		.url {
+			margin: auto 0px;
+
+			.protocol {
+				color: #808080;
+
+				&.protocol-http {
+					color: $activeRed;
+				}
+
+				&.protocol-https {
+					color: $secureGreen;
+				}
+			}
+
+			.port {
+				color: #808080;
+			}
+
+			.pathname {
+				color: #d0d0d0;
+			}
+
+			.search {
+				color: #d0d0d0;
+			}
+
+			.hash {
+				color: #808080;
+			}
 		}
 	}
 }
