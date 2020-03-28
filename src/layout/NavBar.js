@@ -19,6 +19,7 @@ export default ({tabs}) => {
 			navInput.current.focus();
 			navInput.current.select();
 		}
+		// eslint-disable-next-line
 	}, [editingInput])
 
 	return (
