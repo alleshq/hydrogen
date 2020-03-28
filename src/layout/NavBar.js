@@ -1,14 +1,25 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, createRef} from "react";
 import getActiveTab from "../getActiveTab";
 
 export default ({tabs}) => {
 	const [refreshing, setRefreshing] = useState(false);
 	const [url, setUrl] = useState();
-	const [navInput, setNavInput] = useState(false);
+	const [editingInput, setEditingInput] = useState(false);
+	const navInput = createRef();
 	const tab = getActiveTab(tabs);
 	const urlData = new URL(tab.url);
 
-	useEffect(() => setUrl(), [tab]);
+	useEffect(() => {
+		setUrl();
+		setEditingInput(false);
+	}, [tab]);
+
+	useEffect(() => {
+		if (editingInput) {
+			navInput.current.focus();
+			navInput.current.select();
+		}
+	}, [editingInput])
 
 	return (
 		<div className="navBar">
@@ -31,9 +42,12 @@ export default ({tabs}) => {
 					refresh
 				</i>
 			</div>
-			<div className="inputBar">
-				{console.log(urlData)}
-				{navInput ? (
+			<div className="inputBar" onClick={() => {
+				if (!editingInput) {
+					setEditingInput(true);
+				}
+			}}>
+				{editingInput ? (
 					<form
 						onSubmit={e => {
 							e.preventDefault();
@@ -43,9 +57,9 @@ export default ({tabs}) => {
 					>
 						<input
 							value={typeof url === "string" ? url : tab.url}
-							onChange={e => {
-								setUrl(e.target.value);
-							}}
+							onChange={e => setUrl(e.target.value)}
+							onBlur={() => setEditingInput(false)}
+							ref={navInput}
 						/>
 					</form>
 				) : (

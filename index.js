@@ -252,6 +252,7 @@ ElectronBlocker.fromLists(fetch, [
 
 //Nav Input
 const handleNavInput = async (win, tab, value) => {
+	value = value.trim();
 	if (value.startsWith("h:")) {
 		const cmd = value.replace("h:", "").split(" ");
 		if (cmd[0] === "dev") {
