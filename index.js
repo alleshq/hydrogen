@@ -189,7 +189,7 @@ const setActiveTab = (win, tabId) => {
 
 //Create Tab
 const createTab = (win, url, active, first) => {
-	//Create Tab
+	//Create BrowserView
 	const tab = new BrowserView({
 		webPreferences: {
 			preload: __dirname + "/tabPreload.js"
