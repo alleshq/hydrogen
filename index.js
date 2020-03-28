@@ -52,7 +52,8 @@ const createWindow = maximized => {
 
 	//On Resize
 	win.on("resize", () => {
-		Object.keys(win.tabs).forEach(id => resizeTabView(win.tabs[id], win));
+		const tab = getActiveTab(win.tabs);
+		resizeTabView(tab, win);
 	});
 };
 app.whenReady().then(() => createWindow(true));
