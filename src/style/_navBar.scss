@@ -32,6 +32,7 @@
 		flex-grow: 1;
 		margin: 7px 20px;
 		display: flex;
+		overflow: hidden;
 
 		form {
 			margin: 0;
@@ -64,6 +65,7 @@
 
 		.url {
 			margin: auto 0px;
+			white-space: nowrap;
 
 			.protocol {
 				color: #808080;
