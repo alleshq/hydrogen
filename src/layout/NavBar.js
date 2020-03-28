@@ -58,7 +58,10 @@ export default ({tabs}) => {
 						<input
 							value={typeof url === "string" ? url : tab.url}
 							onChange={e => setUrl(e.target.value)}
-							onBlur={() => setEditingInput(false)}
+							onBlur={() => {
+								setUrl();
+								setEditingInput(false);
+							}}
 							ref={navInput}
 						/>
 					</form>
