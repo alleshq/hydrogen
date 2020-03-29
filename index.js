@@ -224,11 +224,6 @@ const createTab = (win, url, active, first) => {
 	//On new tab
 	tab.webContents.addListener("new-window", (e, url) => {
 		createTab(win, url, true);
-	});	
-
-	//On Fail Load
-	tab.webContents.addListener("did-fail-load", (e, errorCode, errorDescription) => {
-		tab.webContents.loadURL("https://veev.cc/pagefail");
 	});
 
 	//Make tab active
