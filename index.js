@@ -197,10 +197,11 @@ const createTab = (win, url, active, first) => {
 	});
 	const id = uuid();
 	tab.webContents.tabId = id;
-	tab.webContents.userAgent = tab.webContents.userAgent
-		.replace(/ hydrogen\\?.([^\s]+)/g, "")
-		.replace(/ Electron\\?.([^\s]+)/g, "");
 	resizeTabView(tab, win);
+
+	//Hacky User Agent Thing
+	const ua = tab.webContents.userAgent;
+	tab.webContents.userAgent = ua.substr(0, ua.indexOf("AppleWebKit")) + "Gecko/20100101 Firefox/74.0";
 
 	//Inital Meta
 	tab.title = url;
