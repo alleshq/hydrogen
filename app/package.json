@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"start": "cross-env BROWSER=none react-scripts start",
+		"start": "cross-env BROWSER=none PORT=5164 react-scripts start",
 		"build": "react-scripts build"
 	},
 	"devDependencies": {
