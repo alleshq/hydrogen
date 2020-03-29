@@ -12,7 +12,7 @@ export default ({tabs}) => {
 	useEffect(() => {
 		setUrl();
 		setEditingInput(false);
-	}, [tab.tabId]);
+	}, [tab.id, tab.url]);
 
 	useEffect(() => {
 		if (editingInput) {
