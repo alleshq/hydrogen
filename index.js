@@ -9,6 +9,7 @@ const {
 const isDev = require("electron-is-dev");
 const uuid = require("uuid").v4;
 const axios = require("axios");
+const registerProtocol = require("./protocol");
 
 const apiUrl = `${
 	isDev ? "http://localhost" : "https://hydrogen.alles.cx"
@@ -56,7 +57,10 @@ const createWindow = maximized => {
 		resizeTabView(tab, win);
 	});
 };
-app.whenReady().then(() => createWindow(true));
+app.whenReady().then(() => {
+	createWindow(true);
+	registerProtocol();
+});
 
 //End process on windows closed
 app.on("window-all-closed", () => {
@@ -192,7 +196,8 @@ const createTab = (win, url, active, first) => {
 	//Create BrowserView
 	const tab = new BrowserView({
 		webPreferences: {
-			preload: __dirname + "/tabPreload.js"
+			preload: __dirname + "/tabPreload.js",
+			partition: "tabs"
 		}
 	});
 	const id = uuid();
@@ -246,13 +251,13 @@ const updateTabs = win => {
 //Blocking
 const {ElectronBlocker} = require("@cliqz/adblocker-electron");
 const fetch = require("cross-fetch");
-ElectronBlocker.fromLists(fetch, [
-	"https://easylist.to/easylist/easylist.txt"
-]).then(blocker => {
-	blocker.enableBlockingInSession(session.defaultSession);
-}).catch(() => {
-	console.log("Ad Blocker failed.");
-});
+ElectronBlocker.fromLists(fetch, ["https://easylist.to/easylist/easylist.txt"])
+	.then(blocker => {
+		blocker.enableBlockingInSession(session.fromPartition("tabs"));
+	})
+	.catch(() => {
+		console.log("Ad Blocker failed.");
+	});
 
 //Nav Input
 const handleNavInput = async (win, tab, value) => {
