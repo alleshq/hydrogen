@@ -1,0 +1,25 @@
+{
+    "scripts": {
+		"start": "cross-env BROWSER=none react-scripts start",
+		"build": "react-scripts build"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.2",
+        "node-sass": "^4.13.1",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-scripts": "3.4.1"
+    },
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
+}
