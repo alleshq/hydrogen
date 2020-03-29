@@ -20,7 +20,7 @@ export default ({tabs}) => {
 			navInput.current.select();
 		}
 		// eslint-disable-next-line
-	}, [editingInput])
+	}, [editingInput]);
 
 	return (
 		<div className="navBar">
@@ -43,11 +43,14 @@ export default ({tabs}) => {
 					refresh
 				</i>
 			</div>
-			<div className="inputBar" onClick={() => {
-				if (!editingInput) {
-					setEditingInput(true);
-				}
-			}}>
+			<div
+				className="inputBar"
+				onClick={() => {
+					if (!editingInput) {
+						setEditingInput(true);
+					}
+				}}
+			>
 				{editingInput ? (
 					<form
 						onSubmit={e => {
@@ -76,7 +79,14 @@ export default ({tabs}) => {
 							{urlData.protocol === "https:" ? "https" : "no_encryption"}
 						</i>
 						<p className="url">
-							<span className={`protocol protocol-${urlData.protocol.replace(/\W/g, "")}`}>{urlData.protocol + "//"}</span>
+							<span
+								className={`protocol protocol-${urlData.protocol.replace(
+									/\W/g,
+									""
+								)}`}
+							>
+								{urlData.protocol + "//"}
+							</span>
 							<span className="hostname">{urlData.hostname}</span>
 							{urlData.port ? (
 								<span className="port">:{urlData.port}</span>
