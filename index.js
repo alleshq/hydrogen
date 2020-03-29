@@ -202,7 +202,7 @@ const createTab = (win, url, active, first) => {
 	//Hacky User Agent Thing
 	const ua = tab.webContents.userAgent;
 	tab.webContents.userAgent =
-		ua.substr(0, ua.indexOf("AppleWebKit")) + "Gecko/20100101 Firefox/74.0";
+		ua.substr(0, ua.indexOf(")")) + "; rv:74.0) Gecko/20100101 Firefox/74.0";
 
 	//Inital Meta
 	tab.title = url;
