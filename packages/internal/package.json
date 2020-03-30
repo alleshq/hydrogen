@@ -1,6 +1,8 @@
 {
+	"name": "internal",
+	"version": "1.0.0",
 	"scripts": {
-		"start": "cross-env BROWSER=none PORT=5164 react-scripts start",
+		"start": "cross-env BROWSER=none PORT=5165 react-scripts start",
 		"build": "react-scripts build"
 	},
 	"devDependencies": {
@@ -22,5 +24,8 @@
 			"last 1 safari version"
 		]
 	},
-	"homepage": "./"
+	"homepage": "./",
+	"dependencies": {
+		"react-router-dom": "^5.1.2"
+	}
 }

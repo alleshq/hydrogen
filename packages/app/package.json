@@ -1,0 +1,16 @@
+{
+	"name": "app",
+	"main": "index.js",
+	"version": "1.0.0",
+	"scripts": {
+		"start": "electron ."
+	},
+	"dependencies": {
+		"electron": "^8.1.1",
+		"@cliqz/adblocker-electron": "^1.11.0",
+		"axios": "^0.19.2",
+		"cross-fetch": "^3.0.4",
+		"electron-is-dev": "^1.1.0",
+		"uuid": "^7.0.2"
+	}
+}
