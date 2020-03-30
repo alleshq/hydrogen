@@ -16,7 +16,7 @@ protocol.registerSchemesAsPrivileged([
 	}
 ]);
 
-module.exports = () => {
+module.exports = win => {
 	session.fromPartition("tabs").protocol.registerStringProtocol(
 		"hydrogen",
 		async (request, callback) => {

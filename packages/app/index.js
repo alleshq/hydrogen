@@ -56,10 +56,12 @@ const createWindow = maximized => {
 		const tab = getActiveTab(win.tabs);
 		resizeTabView(tab, win);
 	});
+
+	return win;
 };
 app.whenReady().then(() => {
-	createWindow(true);
-	registerProtocol();
+	const win = createWindow(true);
+	registerProtocol(win);
 });
 
 //End process on windows closed
