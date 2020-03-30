@@ -38,7 +38,9 @@ const createWindow = maximized => {
 
 	//Load App Page
 	win.loadURL(
-		!isDev ? "http://localhost:5164" : `file://${__dirname}/app/build/index.html`
+		!isDev
+			? "http://localhost:5164"
+			: `file://${__dirname}/app/build/index.html`
 	);
 
 	//Window Movement

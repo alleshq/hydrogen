@@ -1,5 +1,5 @@
-const {protocol, session} = require("electron");
-const url = require("url");
+const {protocol, session, ipcRenderer} = require("electron");
+const isDev = require("electron-is-dev");
 
 protocol.registerSchemesAsPrivileged([
 	{
@@ -16,23 +16,23 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 module.exports = () => {
-    session.fromPartition("tabs").protocol.registerFileProtocol(
-        "hydrogen",
-        (request, callback) => {
-            const parsed = url.parse(request.url);
-
-            if (parsed.path === "/") {
-                console.log(`${__dirname}/web/${parsed.hostname}.html`);
-                return callback({
-                    path: `${__dirname}/web/${parsed.hostname}.html`
-                });
+	session.fromPartition("tabs").protocol.registerHttpProtocol(
+		"hydrogen",
+		(request, callback) => {
+            var url = request.url.substr(11);
+            if (url.split("/")[1] === "static") {
+                url = url.split("/");
+                url.shift();
+                url = url.join("/");
             }
-            
-            console.log(`${__dirname}/web/${parsed.path}`);
-            callback({path: `${__dirname}/web/${parsed.path}`});
-        },
-        error => {
-            if (error) console.error(error);
-        }
-    );
+            callback({
+				url: isDev
+					? "http://localhost:5165/" + url
+					: `file://${__dirname}/internal/build/index.html`
+			});
+		},
+		error => {
+			if (error) console.error(error);
+		}
+	);
 };
