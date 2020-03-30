@@ -2,6 +2,15 @@ const {protocol, session} = require("electron");
 const isDev = require("electron-is-dev");
 const axios = require("axios");
 
+//Get Active Tab
+const getActiveTab = tabs => {
+	const tabStatus = Object.keys(tabs).map(id => (tabs[id].active ? 1 : 0));
+	const activeId = Object.keys(tabs)[tabStatus.indexOf(1)];
+	const active = tabs[activeId];
+	active.tabId = activeId;
+	return active;
+};
+
 protocol.registerSchemesAsPrivileged([
 	{
 		scheme: "hydrogen",
@@ -20,6 +29,8 @@ module.exports = win => {
 	session.fromPartition("tabs").protocol.registerStringProtocol(
 		"hydrogen",
 		async (request, callback) => {
+			const tab = getActiveTab(win.tabs);
+
 			var url = request.url.substr(11);
 			if (url.split("/")[1] === "static" || url.endsWith(".js")) {
 				url = url.split("/");
@@ -31,13 +42,7 @@ module.exports = win => {
 				? `http://localhost:5165/home`
 				: `file://${__dirname}/internal/build/index.html`;
 
-			try {
-				const {data} = await axios.get(sourceUrl);
-				callback(data);
-			} catch (err) {
-				console.log(err.response.data);
-				callback("Failed to access internal pages");
-			}
+			tab.webContents.loadURL(sourceUrl);
 		},
 		error => {
 			if (error) console.error(error);
