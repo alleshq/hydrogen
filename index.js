@@ -38,9 +38,7 @@ const createWindow = maximized => {
 
 	//Load App Page
 	win.loadURL(
-		isDev
-			? "http://localhost:5164"
-			: `file://${__dirname}/app/build/index.html`
+		isDev ? "http://localhost:5164" : `file://${__dirname}/app/build/index.html`
 	);
 
 	//Window Movement
@@ -272,8 +270,9 @@ const handleNavInput = async (win, tab, value) => {
 			createTab(win, tab.url, true);
 		}
 	} else {
-		const url = (await axios.get(`${apiUrl}/to/${encodeURIComponent(value)}`))
-			.data;
+		const url = value.startsWith("!!")
+			? value.substr(2)
+			: (await axios.get(`${apiUrl}/to/${encodeURIComponent(value)}`)).data;
 		tab.webContents.loadURL(url);
 	}
 };
