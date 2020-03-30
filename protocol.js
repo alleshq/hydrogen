@@ -20,11 +20,11 @@ module.exports = () => {
 		"hydrogen",
 		(request, callback) => {
             var url = request.url.substr(11);
-            if (url.split("/")[1] === "static") {
+            if (url.split("/")[1] === "static" || url.endsWith(".js")) {
                 url = url.split("/");
                 url.shift();
                 url = url.join("/");
-            }
+			}
             callback({
 				url: isDev
 					? "http://localhost:5165/" + url
