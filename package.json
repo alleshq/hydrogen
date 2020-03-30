@@ -13,7 +13,13 @@
 		"dev:internal": "yarn workspace internal start",
 		"format": "prettier --write \"**/*.+(js|jsx|json|scss)\""
 	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "yarn format"
+		}
+	},
 	"devDependencies": {
+		"husky": "^4.2.3",
 		"prettier": "^2.0.2"
 	}
 }
