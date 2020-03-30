@@ -22,5 +22,8 @@
 			"last 1 safari version"
 		]
 	},
-	"homepage": "./"
+	"homepage": "./",
+	"dependencies": {
+		"react-router-dom": "^5.1.2"
+	}
 }

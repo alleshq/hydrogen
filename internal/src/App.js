@@ -1,5 +1,10 @@
 import React from "react";
+import "./style/index.scss";
 
 export default () => {
-	return <p>This is a test</p>;
+	return (
+		<div className="app">
+			
+		</div>
+	);
 };
