@@ -71,13 +71,17 @@ export default ({tabs}) => {
 					</form>
 				) : (
 					<>
-						<i
-							className={`material-icons lock ${
-								urlData.protocol === "https:" ? "secure" : "insecure"
-							}`}
-						>
-							{urlData.protocol === "https:" ? "https" : "no_encryption"}
-						</i>
+						{urlData.protocol === "http:" || urlData.protocol === "https:" ? (
+							<i
+								className={`material-icons lock ${
+									urlData.protocol === "https:" ? "secure" : "insecure"
+								}`}
+							>
+								{urlData.protocol === "https:" ? "https" : "no_encryption"}
+							</i>
+						) : (
+							<></>
+						)}
 						<p className="url">
 							<span
 								className={`protocol protocol-${urlData.protocol.replace(

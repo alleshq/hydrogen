@@ -52,7 +52,7 @@
 		}
 
 		.lock {
-			margin: auto 10px;
+			margin: auto 0 auto 10px;
 			font-size: 20px;
 
 			&.secure {
@@ -65,7 +65,7 @@
 		}
 
 		.url {
-			margin: auto 0px;
+			margin: auto 10px;
 			white-space: nowrap;
 
 			.protocol {
