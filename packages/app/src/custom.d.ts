@@ -5,7 +5,7 @@ declare namespace Electron {
 	}
 
 	export interface WebContents {
-		tabId: string;
+		tabId?: string;
 	}
 
 	export interface BrowserView {
