@@ -26,7 +26,7 @@ const createWindow = maximized => {
 		minHeight: 700,
 		frame: false,
 		webPreferences: {
-			preload: __dirname + "/appPreload.js"
+			preload: __dirname + "/preloads/appPreload.js"
 		},
 		title: "Hydrogen"
 	});
@@ -196,7 +196,7 @@ const createTab = (win, url, active, first) => {
 	//Create BrowserView
 	const tab = new BrowserView({
 		webPreferences: {
-			preload: __dirname + "/tabPreload.js",
+			preload: __dirname + "/preloads/tabPreload.js",
 			partition: "tabs"
 		}
 	});
