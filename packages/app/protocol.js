@@ -1,6 +1,5 @@
 const {protocol, session} = require("electron");
 const isDev = require("electron-is-dev");
-const {getActiveTab} = require("./tabs");
 
 protocol.registerSchemesAsPrivileged([
 	{
@@ -17,12 +16,10 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 module.exports = win => {
-	session.fromPartition("tabs").protocol.registerStringProtocol(
+	session.fromPartition("tabs").protocol.registerHttpProtocol(
 		"hydrogen",
 		async (request, callback) => {
-			const tab = getActiveTab(win.tabs);
-
-			var url = request.url.substr(11);
+			let url = request.url.substr(11);
 			if (url.split("/")[1] === "static" || url.endsWith(".js")) {
 				url = url.split("/");
 				url.shift();
@@ -30,10 +27,12 @@ module.exports = win => {
 			}
 
 			const sourceUrl = isDev
-				? `http://localhost:5165/home`
+				? `http://localhost:5165/${url}`
 				: `file://${__dirname}/internal/build/index.html`;
 
-			tab.webContents.loadURL(sourceUrl);
+			callback({
+				url: sourceUrl
+			});
 		},
 		error => {
 			if (error) console.error(error);

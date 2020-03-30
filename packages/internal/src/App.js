@@ -1,16 +1,18 @@
 import React from "react";
 import "./style/index.scss";
+import Home from "./pages/home";
 
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-
-import home from "./pages/home";
+const Router = () => {
+	switch (window.location.hostname) {
+		case "home":
+			return <Home />;
+		default:
+			return <Home />;
+	}
+};
 
 export default () => (
 	<div className="app">
-		<Router>
-			<Switch>
-				<Route path="/home" children={home} />
-			</Switch>
-		</Router>
+		<Router />
 	</div>
 );
