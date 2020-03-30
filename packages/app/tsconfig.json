@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"noImplicitAny": false, // TODO: set to true
+		"sourceMap": true,
+		"outDir": "dist",
+		"esModuleInterop": true,
+		"baseUrl": ".",
+		"paths": {
+			"*": ["node_modules/*"]
+		}
+	},
+	"include": ["src/**/*", "preloads"]
+}

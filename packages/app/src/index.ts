@@ -1,14 +1,15 @@
-const {app, BrowserWindow, ipcMain, screen, session} = require("electron");
-const isDev = require("electron-is-dev");
-const axios = require("axios");
-const registerProtocol = require("./protocol");
-const {
+import {app, BrowserWindow, ipcMain, screen, session} from "electron";
+import isDev from "electron-is-dev";
+import axios from "axios";
+
+import registerProtocol from "./utils/protocol";
+import {
 	resizeTabView,
 	getActiveTab,
 	setActiveTab,
 	createTab,
 	updateTabs
-} = require("./tabs");
+} from "./utils/tabs";
 
 const apiUrl = `${
 	isDev ? "http://localhost" : "https://hydrogen.alles.cx"
@@ -16,7 +17,8 @@ const apiUrl = `${
 app.allowRendererProcessReuse = true;
 
 //Create Window
-const createWindow = maximized => {
+const createWindow = (maximized = false) => {
+	console.log(__dirname);
 	const {width, height} = screen.getPrimaryDisplay().workAreaSize;
 	const win = new BrowserWindow({
 		width: maximized ? width : 1000,
@@ -25,7 +27,7 @@ const createWindow = maximized => {
 		minHeight: 700,
 		frame: false,
 		webPreferences: {
-			preload: __dirname + "/preloads/appPreload.js"
+			preload: __dirname + "/../preloads/appPreload.js"
 		},
 		title: "Hydrogen"
 	});

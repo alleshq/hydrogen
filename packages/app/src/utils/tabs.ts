@@ -1,8 +1,8 @@
-const {BrowserView} = require("electron");
-const uuid = require("uuid").v4;
+import {BrowserView} from "electron";
+import {v4 as uuid} from "uuid";
 
 //Resize TabView
-const resizeTabView = (tv, win) => {
+export const resizeTabView = (tv, win) => {
 	tv.setBounds({
 		x: 0,
 		y: 90,
@@ -12,7 +12,7 @@ const resizeTabView = (tv, win) => {
 };
 
 //Get Active Tab
-const getActiveTab = tabs => {
+export const getActiveTab = tabs => {
 	const tabStatus = Object.keys(tabs).map(id => (tabs[id].active ? 1 : 0));
 	const activeId = Object.keys(tabs)[tabStatus.indexOf(1)];
 	const active = tabs[activeId];
@@ -21,7 +21,7 @@ const getActiveTab = tabs => {
 };
 
 //Set Active Tab
-const setActiveTab = (win, tabId) => {
+export const setActiveTab = (win, tabId) => {
 	if (!win) return;
 	const tab = win.tabs[tabId];
 	if (!tab) return;
@@ -43,11 +43,11 @@ const setActiveTab = (win, tabId) => {
 };
 
 //Create Tab
-const createTab = (win, url, active, first) => {
+export const createTab = (win, url, active, first = false) => {
 	//Create BrowserView
 	const tab = new BrowserView({
 		webPreferences: {
-			preload: __dirname + "/preloads/tabPreload.js",
+			preload: __dirname + "/../../preloads/tabPreload.js",
 			partition: "tabs"
 		}
 	});
@@ -91,18 +91,10 @@ const createTab = (win, url, active, first) => {
 };
 
 //Update Tabs
-const updateTabs = win => {
+export const updateTabs = win => {
 	win.webContents.send(
 		"asynchronous-message",
 		"app.updateTabs",
 		JSON.stringify(win.tabs)
 	);
-};
-
-module.exports = {
-	resizeTabView,
-	getActiveTab,
-	setActiveTab,
-	createTab,
-	updateTabs
 };
