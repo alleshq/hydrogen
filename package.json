@@ -8,9 +8,12 @@
 		"packages/*"
 	],
 	"scripts": {
-		"dev:ui": "yarn workspace ui start",
-		"dev:app": "yarn workspace app start",
-		"dev:internal": "yarn workspace internal start",
+		"start:app": "yarn workspace app start",
+		"dev:app": "NODE_ENV=DEVELOPMENT yarn workspace app start",
+		"dev:ui": "NODE_ENV=DEVELOPMENT yarn workspace ui start",
+		"build:ui": "yarn workspace ui build",
+		"dev:internal": "NODE_ENV=DEVELOPMENT yarn workspace internal start",
+		"build:internal": "yarn workspace internal build",
 		"format": "prettier --write \"**/*.+(js|jsx|json|scss)\""
 	},
 	"husky": {
