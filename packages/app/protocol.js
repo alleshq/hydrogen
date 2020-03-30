@@ -15,7 +15,7 @@ protocol.registerSchemesAsPrivileged([
 	}
 ]);
 
-module.exports = win => {
+module.exports = () => {
 	session.fromPartition("tabs").protocol.registerHttpProtocol(
 		"hydrogen",
 		async (request, callback) => {
@@ -27,7 +27,7 @@ module.exports = win => {
 			}
 
 			const sourceUrl = isDev
-				? `http://localhost:5165/${url}`
+				? `http://localhost:5165/`
 				: `file://${__dirname}/internal/build/index.html`;
 
 			callback({
