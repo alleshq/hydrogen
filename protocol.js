@@ -1,4 +1,4 @@
-const {protocol, session, ipcRenderer} = require("electron");
+const {protocol, session} = require("electron");
 const isDev = require("electron-is-dev");
 
 protocol.registerSchemesAsPrivileged([
@@ -27,7 +27,7 @@ module.exports = () => {
 			}
 			callback({
 				url: isDev
-					? "http://localhost:5165/" + url
+					? "https://easylist.to/easylist/easylist.txt"
 					: `file://${__dirname}/internal/build/index.html`
 			});
 		},
