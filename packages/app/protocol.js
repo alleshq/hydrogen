@@ -30,7 +30,7 @@ module.exports = () => {
 			const sourceUrl = isDev
 				? `http://localhost:5165/home`
 				: `file://${__dirname}/internal/build/index.html`;
-			
+
 			try {
 				const {data} = await axios.get(sourceUrl);
 				callback(data);
