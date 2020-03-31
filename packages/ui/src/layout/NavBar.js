@@ -80,7 +80,11 @@ export default ({tabs}) => {
 								{urlData.protocol === "https:" ? "https" : "no_encryption"}
 							</i>
 						) : (
-							<></>
+							<i
+								className={`material-icons lock internal`}
+							>
+								https	
+							</i>
 						)}
 						<p className="url">
 							<span
