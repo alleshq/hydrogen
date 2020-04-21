@@ -10,10 +10,6 @@ ipcRenderer.on("asynchronous-message", (event, ...args) => {
 
 window.app = {
 	windowId,
-	minimize: () =>
-		ipcRenderer.send("asynchronous-message", "app.minimize", windowId),
-	maximize: () =>
-		ipcRenderer.send("asynchronous-message", "app.maximize", windowId),
 	refresh: () =>
 		ipcRenderer.send("asynchronous-message", "app.refresh", windowId),
 	back: () => ipcRenderer.send("asynchronous-message", "app.back", windowId),
@@ -31,14 +27,5 @@ window.app = {
 	closeTab: tabId =>
 		ipcRenderer.send("asynchronous-message", "app.closeTab", windowId, tabId),
 	navInput: v =>
-		ipcRenderer.send("asynchronous-message", "app.navInput", windowId, v),
-	startWindowMove: (relX, relY) =>
-		ipcRenderer.send(
-			"asynchronous-message",
-			"app.startWindowMove",
-			windowId,
-			JSON.stringify([relX, relY])
-		),
-	endWindowMove: () =>
-		ipcRenderer.send("asynchronous-message", "app.endWindowMove", windowId)
+		ipcRenderer.send("asynchronous-message", "app.navInput", windowId, v)
 };

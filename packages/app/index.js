@@ -23,12 +23,12 @@ const createWindow = maximized => {
 		height: maximized ? height : 700,
 		minWidth: 1000,
 		minHeight: 700,
-		frame: false,
 		webPreferences: {
-			preload: __dirname + "/preloads/appPreload.js"
+			preload: __dirname + "/preloads/uiPreload.js"
 		},
 		title: "Hydrogen"
 	});
+	win.removeMenu();
 
 	//Create Tabs
 	win.tabs = {};
@@ -39,16 +39,6 @@ const createWindow = maximized => {
 	win.loadURL(
 		isDev ? "http://localhost:5164" : `file://${__dirname}/app/build/index.html`
 	);
-
-	//Window Movement
-	setInterval(() => {
-		if (win.moving) {
-			const mousePos = screen.getCursorScreenPoint();
-			const x = mousePos.x - win.moving[0];
-			const y = mousePos.y - win.moving[1];
-			win.setPosition(x, y);
-		}
-	}, 10);
 
 	//On Resize
 	win.on("resize", () => {
@@ -73,16 +63,7 @@ app.on("activate", () => {
 
 //IPC
 ipcMain.on("asynchronous-message", (event, ...args) => {
-	if (args[0] === "app.minimize") {
-		BrowserWindow.fromId(args[1]).minimize();
-	} else if (args[0] === "app.maximize") {
-		const win = BrowserWindow.fromId(args[1]);
-		if (win.isMaximized()) {
-			win.unmaximize();
-		} else {
-			win.maximize();
-		}
-	} else if (args[0] === "app.refresh") {
+	if (args[0] === "app.refresh") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		tab.webContents.reload();
 	} else if (args[0] === "app.setTab") {
@@ -120,12 +101,6 @@ ipcMain.on("asynchronous-message", (event, ...args) => {
 	} else if (args[0] === "app.forward") {
 		const tab = getActiveTab(BrowserWindow.fromId(args[1]).tabs);
 		tab.webContents.goForward();
-	} else if (args[0] === "app.startWindowMove") {
-		const win = BrowserWindow.fromId(args[1]);
-		if (!win.isMaximized()) win.moving = JSON.parse(args[2]);
-	} else if (args[0] === "app.endWindowMove") {
-		const win = BrowserWindow.fromId(args[1]);
-		delete win.moving;
 	} else if (args[0] === "app.newWindow") {
 		createWindow(false);
 	} else if (args[0] === "tab.updateMeta") {
