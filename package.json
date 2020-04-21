@@ -9,6 +9,7 @@
 	],
 	"scripts": {
 		"start:app": "yarn workspace app start",
+		"dev": "concurrently \"npm:dev:ui\" \"npm:dev:internal\" \"npm:dev:app\"",
 		"dev:app": "NODE_ENV=DEVELOPMENT yarn workspace app start",
 		"dev:ui": "NODE_ENV=DEVELOPMENT yarn workspace ui start",
 		"build:ui": "yarn workspace ui build",
@@ -22,6 +23,7 @@
 		}
 	},
 	"devDependencies": {
+		"concurrently": "^5.1.0",
 		"husky": "^4.2.3",
 		"prettier": "^2.0.2"
 	}

@@ -16,7 +16,11 @@ const apiUrl = `${
 app.allowRendererProcessReuse = true;
 
 //Create Window
-const createWindow = maximized => {
+const createWindow = async maximized => {
+	//Dev Wait
+	if (isDev) await new Promise(resolve => setTimeout(resolve, 5000));
+
+	//New Window
 	const {width, height} = screen.getPrimaryDisplay().workAreaSize;
 	const win = new BrowserWindow({
 		width: maximized ? width : 1000,
