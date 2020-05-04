@@ -10,10 +10,10 @@
 	"scripts": {
 		"start:app": "yarn workspace app start",
 		"dev": "concurrently \"npm:dev:ui\" \"npm:dev:internal\" \"npm:dev:app\"",
-		"dev:app": "NODE_ENV=DEVELOPMENT yarn workspace app start",
-		"dev:ui": "NODE_ENV=DEVELOPMENT yarn workspace ui start",
+		"dev:app": "cross-env NODE_ENV=DEVELOPMENT yarn workspace app start",
+		"dev:ui": "cross-env NODE_ENV=DEVELOPMENT yarn workspace ui start",
 		"build:ui": "yarn workspace ui build",
-		"dev:internal": "NODE_ENV=DEVELOPMENT yarn workspace internal start",
+		"dev:internal": "cross-env NODE_ENV=DEVELOPMENT yarn workspace internal start",
 		"build:internal": "yarn workspace internal build",
 		"format": "prettier --write \"**/*.+(js|jsx|json|scss)\""
 	},
@@ -24,6 +24,7 @@
 	},
 	"devDependencies": {
 		"concurrently": "^5.1.0",
+		"cross-env": "^7.0.2",
 		"husky": "^4.2.3",
 		"prettier": "^2.0.2"
 	}
